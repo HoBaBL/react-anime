@@ -1,0 +1,37 @@
+.header {
+    background-color: #000000;
+    width: 100%;
+    padding: 15px 0;
+}
+
+.container {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.title {
+    margin: 0;
+    color: #e4e4e4;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+}
+
+.headerMenuHref {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 0;
+}
+
+.headerFlex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input {
+    background-color: #2e2e2e;
+    color: #e4e4e4;
+    border-radius: 15px;
+}

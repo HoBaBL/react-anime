@@ -1,0 +1,75 @@
+.container {
+    max-width: 1220px;
+    margin: 0 auto;
+}
+
+.carouselDemonSlayer {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://i.pinimg.com/originals/5a/de/4a/5ade4a7b646b3bdc662862c0edfd8461.jpg');
+    width: 100%;
+    height: 40em;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+.carouselAttackOnTitan {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://avatars.mds.yandex.net/i?id=4dd8b726cc2247ea92b514263e5b9c6d_l-5234139-images-thumbs&n=13');
+    width: 100%;
+    height: 40em;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+.carouselJujutsuKaisen {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://avatars.mds.yandex.net/i?id=6dc96751a162776b5432ff4cb66f0a30_l-8193383-images-thumbs&n=13');
+    width: 100%;
+    height: 40em;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+.carouselBleach {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://avatars.mds.yandex.net/i?id=1e3f440c1f4941d99fcd64145913ac46_l-5284123-images-thumbs&n=13');
+    width: 100%;
+    height: 40em;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+.carouselBlockText {
+    color: #e4e4e4;
+    padding: 80px;
+    max-width: 800px;
+}
+
+.h2 {
+    font-weight: 500;
+    font-size: 46px;
+    margin: 0;
+}
+
+.p {
+    font-size: 20px;
+    color: #dadad2 ;
+}
+
+.btn {
+    font-size: 20px;
+    border: 3px solid #d56f1a;
+    border-radius: 30px;
+    height: 50px;
+    padding: 0 20px;
+    line-height: 0px;
+}
+
+.btnNoneBorder {
+    font-size: 20px;
+    border: none;
+    border-radius: 30px;
+    /* height: 50px; */
+    padding: 0 0;
+    line-height: 0px;
+}
