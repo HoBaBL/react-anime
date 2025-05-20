@@ -17,7 +17,8 @@ function Header() {
                                 components: {
                                 Button: {
                                     colorLink: '#e4e4e4',
-                                    colorLinkHover: '#d56f1a'
+                                    colorLinkHover: '#d56f1a',
+                                    colorLinkActive: '#d56f1a'
                                 },
                                 },
                             }}

@@ -1,0 +1,111 @@
+.container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 20px;
+    margin-top: 40px;
+}
+
+.h2 {
+    background: linear-gradient(90deg,rgba(244, 227, 121, 1) 0%, rgba(204, 81, 59, 1) 100%);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 36px;
+    text-transform: uppercase;
+    max-width: 240px;
+    font-family:  "Exo 2", sans-serif;
+}
+
+.popularFlex {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(1,275px);
+    gap: 20px;
+}
+
+.popularBox {
+    background-color: transparent;
+    border-radius: 15px;
+    cursor: pointer;
+    position: relative;
+    text-decoration: none;
+    width: 100%;
+}
+
+.img {
+    width: 100%;
+    border-radius: 15px;
+    height: 275px;
+}
+
+.flexHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.more {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 500;
+    font-family:  "Exo 2", sans-serif;
+}
+
+
+.absolute {
+    position: absolute;
+     height: 276px;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 15px;
+    background-color: rgb(5, 5, 5,0.7);
+    display: flex;
+    align-items: center;
+    transition: opacity 0.2s, visibility 0.2s;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.popularBox:hover .absolute {
+    position: absolute;
+    height: 276px;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 15px;
+    background-color: rgb(5, 5, 5,0.8);
+    display: flex;
+    align-items: center;
+    /* display: block; */
+    opacity: 1;   
+  visibility: visible;
+}
+
+.padding {
+    padding: 16px;
+    border-radius: 15px;
+}
+
+.absoluteText {
+    color: rgb(219, 218, 218);
+    margin: 0;
+    /* word-break: break-all; */
+    text-align: center;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-size: 18px;
+    margin-bottom: 35px;
+}
+
+.genres {
+    color: rgb(153, 153, 153);
+    text-align: center;
+    font-size: 14px;
+}
+
+.series {
+    color: rgb(206, 206, 206);
+    text-align: center;
+    font-size: 14px;
+}

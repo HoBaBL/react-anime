@@ -1,14 +1,12 @@
 import style from './App.module.css'
-import Header from './components/header/header'
-import CarouselComp from './components/carousel/carousel'
+import HomePages from './pages/home'
 
 function App() {
 
 
   return (
     <>
-      <Header/>
-      <CarouselComp/>
+      <HomePages/>
     </>
   )
 }
