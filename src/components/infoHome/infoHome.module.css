@@ -1,0 +1,48 @@
+.container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 20px;
+    margin-top: 100px;
+    display: flex;
+    gap: 40px;
+}
+
+.img {
+    width: 100%;
+    border-radius: 15px;
+}
+
+.h2 {
+    color: #e4e4e4;
+    font-size: 46px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.text {
+    font-size: 20px;
+    color: #dadad2;
+    margin: 10px 0px;
+}
+
+.textBox {
+    max-width: 500px;
+}
+
+.btn {
+    font-size: 20px;
+    border: 3px solid #d56f1a;
+    border-radius: 30px;
+    height: 50px;
+    padding: 0 20px;
+    line-height: 0px;
+}
+
+.btnNoneBorder {
+    font-size: 20px;
+    border: none;
+    border-radius: 30px;
+    /* height: 50px; */
+    padding: 0 0;
+    line-height: 0px;
+}

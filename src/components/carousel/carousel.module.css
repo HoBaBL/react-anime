@@ -1,6 +1,8 @@
 .container {
-    max-width: 1220px;
+    max-width: 1240px;
     margin: 0 auto;
+    padding: 0 20px;
+    
 }
 
 .carouselDemonSlayer {
@@ -13,12 +15,12 @@
 }
 
 .carouselAttackOnTitan {
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://avatars.mds.yandex.net/i?id=4dd8b726cc2247ea92b514263e5b9c6d_l-5234139-images-thumbs&n=13');
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://avatars.mds.yandex.net/i?id=5141b5a06ffb1caf5e11b0af05cef828_l-10299621-images-thumbs&n=13');
     width: 100%;
     height: 40em;
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center center;
+    background-position: top center;
 }
 
 .carouselJujutsuKaisen {

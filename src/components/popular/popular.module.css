@@ -11,7 +11,7 @@
     -webkit-text-fill-color: transparent;
     font-size: 36px;
     text-transform: uppercase;
-    max-width: 240px;
+    /* max-width: 240px; */
     font-family:  "Exo 2", sans-serif;
 }
 
@@ -48,12 +48,13 @@
     font-size: 18px;
     font-weight: 500;
     font-family:  "Exo 2", sans-serif;
+    padding: 0;
 }
 
 
 .absolute {
     position: absolute;
-     height: 276px;
+    height: 276px;
     width: 100%;
     top: 50%;
     left: 50%;
@@ -62,10 +63,12 @@
     background-color: rgb(5, 5, 5,0.7);
     display: flex;
     align-items: center;
+    justify-content: center;
     transition: opacity 0.2s, visibility 0.2s;
     opacity: 0;
     visibility: hidden;
 }
+
 
 .popularBox:hover .absolute {
     position: absolute;
@@ -78,9 +81,9 @@
     background-color: rgb(5, 5, 5,0.8);
     display: flex;
     align-items: center;
-    /* display: block; */
+    justify-content: center;
     opacity: 1;   
-  visibility: visible;
+    visibility: visible;
 }
 
 .padding {
