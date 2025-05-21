@@ -5,9 +5,9 @@ function App() {
 
 
   return (
-    <>
+    <div className={style.box}>
       <HomePages/>
-    </>
+    </div>
   )
 }
 
