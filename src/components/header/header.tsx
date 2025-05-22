@@ -2,6 +2,7 @@ import style from './header.module.css'
 import { Button, Flex, ConfigProvider,Input } from 'antd';
 import { FaRegUser } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
+import { Link } from 'react-router-dom';
 
 function Header() {
 
@@ -10,7 +11,10 @@ function Header() {
         <header className={style.header}>
             <div className={style.container}>
                 <div className={style.headerFlex}>
-                    <h2 className={style.title}>Anime Home</h2>
+                    <Link to={'/'}>
+                        <h2 className={style.title}>Anime Home</h2>
+                    </Link>
+                    
                     <Flex gap="large" wrap>
                         <ConfigProvider
                             theme={{

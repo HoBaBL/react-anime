@@ -2,7 +2,8 @@ import { useEffect, useState, type FC } from 'react'
 import style from './popular.module.css'
 import type { IAnime } from '../../types/types'
 import { Button, ConfigProvider } from 'antd'
-import { getRandomGenres } from '../../api'
+import { Link } from 'react-router-dom';
+import { setAnime } from '../../redux/slice/anime';
 
 
 type PopularType = {
@@ -20,7 +21,6 @@ const Popular:FC<PopularType> = ({text, api}) => {
 
     useEffect(() => {
         createPopular()
-        getRandomGenres()
     },[])
 
     return (
@@ -47,7 +47,7 @@ const Popular:FC<PopularType> = ({text, api}) => {
             </div>
             <div className={style.popularFlex}>
                 { popularAnime && popularAnime.data.map((item) => 
-                    <a key={item.id} className={style.popularBox}>
+                    <Link to={`/${item.alias}`} key={item.id} className={style.popularBox}>
                         <div className={style.absolute}>
                             <div className={style.padding}>
                                 <h3 className={style.absoluteText}>{item.name.main}</h3>
@@ -57,7 +57,7 @@ const Popular:FC<PopularType> = ({text, api}) => {
                             
                         </div>
                         <img className={style.img} src={`https://anilibria.wtf/${item.poster.src}`} alt={item.name.english} />
-                    </a>
+                    </Link>
                 )}
             </div>
         </div>

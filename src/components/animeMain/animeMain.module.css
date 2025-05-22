@@ -1,0 +1,134 @@
+.container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 20px;
+    padding-top: 100px;
+}
+
+.img {
+    border-radius: 15px;
+    max-width: 350px;
+}
+
+.flexHeader {
+    display: flex;
+    gap: 50px;
+}
+
+.h1 {
+    color: #e4e4e4;
+    font-size: 40px;
+    font-weight: 500;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    margin: 0;
+    margin-top: 30px;
+}
+
+.text {
+    color: rgb(153, 153, 153);
+}
+
+.textMain {
+    color: #e4e4e4;
+    margin: 0;
+}
+
+.ongoing {
+    border: solid 1px #d56f1a;
+    border-radius: 8px;
+    color: #d56f1a;
+    /* background: linear-gradient(90deg,rgba(244, 227, 121, 1) 0%, rgba(204, 81, 59, 1) 100%);
+    background-clip: text;
+    -webkit-text-fill-color: transparent; */
+}
+
+.flex {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.ongoingText {
+    margin: 0;
+    padding: 5px 10px;
+    border-radius: 8px;
+}
+
+.textMenuGray {
+    color: rgb(153, 153, 153);
+}
+
+.textMenu {
+    color: #e4e4e4;
+}
+
+.textDescription {
+    color: #e4e4e4;
+    font-size: 20px;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+
+.line {
+    width: 100%;
+    background: #323232;
+    margin-top: 50px;
+    /* background: linear-gradient(90deg,rgba(245, 189, 36, 1) 0%, rgba(255, 75, 38, 1) 100%); */
+    height: 2px;
+    border-radius: 50%;
+}
+
+.h2 {
+    background: linear-gradient(90deg,rgba(244, 227, 121, 1) 0%, rgba(204, 81, 59, 1) 100%);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 30px;
+    font-weight: 500;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    max-width: 150px;
+}
+
+.episodesGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.imgPreview {
+    width: 100%;
+    border-radius: 15px;
+}
+
+.preview {
+    border-radius: 15px;
+    position: relative;
+    height: 166px;
+    background-color: #252525;
+}
+
+.previewText {
+    color: #e4e4e4;
+    margin: 0;
+    font-size: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.previewTextMax {
+    color: #e4e4e4;
+    margin: 0;
+    font-size: 16px;
+}
+
+.previewAbsolute {
+    /* padding: 10px; */
+    position: absolute;
+    z-index: 10;
+    background-color: rgb(5, 5, 5,0.7);
+    width: 100%;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    min-height: 56px;
+    /* top: 50%; */
+    /* transform: translate(-50%, -50%); */
+}
