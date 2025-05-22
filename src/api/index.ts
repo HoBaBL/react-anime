@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { IAnime, Genre,  Anime } from "../types/types";
+import type { IAnime, Genre } from "../types/types";
 import type { EpisodeType } from "../types/typesEpisode";
 
 // const $api = axios.create({

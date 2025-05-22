@@ -3,7 +3,6 @@ import style from './popular.module.css'
 import type { IAnime } from '../../types/types'
 import { Button, ConfigProvider } from 'antd'
 import { Link } from 'react-router-dom';
-import { setAnime } from '../../redux/slice/anime';
 
 
 type PopularType = {

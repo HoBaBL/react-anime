@@ -3,7 +3,6 @@ import { getReleasesId } from '../../api'
 import type { EpisodeType } from '../../types/typesEpisode'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
-import { GiPyromaniac } from "react-icons/gi";
 
 const AnimeMain = () => {
     const [release, setRelease] = useState<EpisodeType>() 
