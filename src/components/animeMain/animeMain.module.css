@@ -104,6 +104,7 @@
     position: relative;
     height: 166px;
     background-color: #252525;
+    cursor: pointer;
 }
 
 .previewText {
@@ -131,4 +132,10 @@
     min-height: 56px;
     /* top: 50%; */
     /* transform: translate(-50%, -50%); */
+}
+
+.iframe {
+    /* position: fixed; */
+    border: none;
+    aspect-ratio: 16/9;
 }
