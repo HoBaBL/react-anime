@@ -36,6 +36,11 @@
     height: 50px;
     padding: 0 20px;
     line-height: 0px;
+    font-family: "Roboto", sans-serif;
+    color: #e4e4e4;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .btnNoneBorder {

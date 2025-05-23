@@ -138,4 +138,101 @@
     /* position: fixed; */
     border: none;
     aspect-ratio: 16/9;
+    width: 100%;
+}
+
+.modal {
+    background-color: transparent;
+}
+
+.flexFranchise {
+    display: flex;
+    /* gap: 30px; */
+    margin-bottom: 15px;
+    background-color: #252525;
+    /* padding: 15px; */
+    padding-left: 0px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: 0.2s;
+    align-items: center;
+}
+
+.flexFranchiseFlex {
+    display: flex;
+    gap: 30px;
+    width: 100%;
+    padding: 15px;
+}
+
+.flexFranchise:hover {
+    background-color: #1f1f1f;
+}
+
+.imgFranchise {
+    width: 100px;
+    border-radius: 10px;
+}
+
+.h3 {
+    color: #e4e4e4;
+    font-size: 22px;
+    font-weight: 500;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    margin: 0;
+}
+
+.yearFranchises {
+    color: rgb(153, 153, 153);
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 40px;
+}
+
+.textFranchise {
+    color: #e4e4e4;
+    font-size: 18px;
+    margin: 0;
+}
+
+.textFranchiseEn {
+    color: rgb(153, 153, 153);
+    font-size: 16px;
+    margin: 5px 0px;
+}
+
+.flexFlex {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.FranchisesNum {
+    font-size: 40px;
+    margin: 0;
+    background: linear-gradient(90deg,rgba(244, 227, 121, 1) 0%, rgba(204, 81, 59, 1) 100%);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.FranchisesNumGray {
+    font-size: 40px;
+    margin: 0;
+    color: rgb(153, 153, 153);
+}
+
+.lineVert {
+    width: 5px;
+    height: 150px;
+    background: linear-gradient(180deg,rgba(244, 227, 121, 1) 0%, rgba(204, 81, 59, 1) 100%);
+    border-radius: 10px;
+    margin-right: 0px;
+}
+
+.lineVertNone {
+    background-color: transparent;
+    border-radius: 10px;
+    margin-right: 0px;
+    width: 5px;
+    height: 150px;
 }

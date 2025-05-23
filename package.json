@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",
+    "@types/vimeo__player": "^2.18.3",
+    "@vime/core": "^5.4.1",
     "antd": "^5.25.1",
     "apache-server-configs": "^6.0.0",
     "axios": "^1.9.0",
