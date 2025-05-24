@@ -28,7 +28,7 @@ function Header() {
                             }}
                             >
                             <Button className={style.headerMenuHref} type="link">Главная</Button>
-                            <Button className={style.headerMenuHref} type="link">Популярные</Button>
+                            <Link to={'/catalog'}><Button className={style.headerMenuHref} type="link">Популярные</Button></Link> 
                             <Button className={style.headerMenuHref} type="link">Новые</Button>
                             <Button className={style.headerMenuHref} type="link">Избранные</Button>
                         </ConfigProvider>

@@ -7,10 +7,11 @@ import { Link } from 'react-router-dom';
 
 type PopularType = {
     text:string,
-    api: () => Promise<IAnime>
+    api: () => Promise<IAnime>,
+    url: string
 }
 
-const Popular:FC<PopularType> = ({text, api}) => {
+const Popular:FC<PopularType> = ({text, api, url}) => {
     const [popularAnime, setPopularAnime] = useState<IAnime>() 
 
     const createPopular = async () => {
@@ -39,7 +40,12 @@ const Popular:FC<PopularType> = ({text, api}) => {
                     >
                     { text === "Случайные релизы" ? 
                         ''
-                        : <Button className={style.more} type="link">Больше</Button>
+                        : 
+                        <Link style={{display:'flex', alignItems:"center", gap:"5px"}} to={`/${url}`}>
+                            <Button className={style.more} type="link">
+                                Больше
+                            </Button>
+                        </Link>
                     }
                     
                 </ConfigProvider>

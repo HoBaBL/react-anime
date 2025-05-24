@@ -125,32 +125,38 @@ const AnimeMain = () => {
                 }
             </div>
             <div className={style.line}></div>
-            <h2 className={style.h2}>Связанное</h2>
-            <div>
-                <h3 className={style.h3}>{Franchises?.data[0].name}</h3>
-                <p className={style.yearFranchises}>{Franchises?.data[0].first_year} - {Franchises?.data[0].last_year}</p>
-                <div>
-                    {Franchises?.data[0].franchise_releases.sort((a, b) => a.sort_order -b.sort_order).map((item) => 
-                        <Link to={`/${item.release.alias}`} style={item.release_id === release?.id ? {backgroundColor: "#1a1919"} : {}} className={style.flexFranchise} key={item.id}>
-                            <div className={item.release_id === release?.id ? style.lineVert : style.lineVertNone}></div>
-                            <div className={style.flexFranchiseFlex}>
-                                <img className={style.imgFranchise} src={`https://anilibria.wtf/${item.release.poster.preview}`} alt="" />
-                                <div className={style.flexFlex}>
-                                    <div>
-                                        <p className={style.textFranchise}>{item.release.name.main}</p>
-                                        <p className={style.textFranchiseEn}>{item.release.name.english}</p>
-                                        <p className={style.textFranchiseEn}>{item.release.year}</p>
-                                        <p className={style.textFranchiseEn}>{item.release.episodes_total} эпизодов</p>
+            
+            {   Franchises?.data.length !== 0 ?
+                <>
+                    <h2 className={style.h2}>Связанное</h2>
+                    <div>
+                        <h3 className={style.h3}>{Franchises?.data[0].name}</h3>
+                        <p className={style.yearFranchises}>{Franchises?.data[0].first_year} - {Franchises?.data[0].last_year}</p>
+                        <div>
+                            {Franchises?.data[0].franchise_releases.sort((a, b) => a.sort_order -b.sort_order).map((item) => 
+                                <Link to={`/${item.release.alias}`} style={item.release_id === release?.id ? {backgroundColor: "#1a1919"} : {}} className={style.flexFranchise} key={item.id}>
+                                    <div className={item.release_id === release?.id ? style.lineVert : style.lineVertNone}></div>
+                                    <div className={style.flexFranchiseFlex}>
+                                        <img className={style.imgFranchise} src={`https://anilibria.wtf/${item.release.poster.preview}`} alt="" />
+                                        <div className={style.flexFlex}>
+                                            <div>
+                                                <p className={style.textFranchise}>{item.release.name.main}</p>
+                                                <p className={style.textFranchiseEn}>{item.release.name.english}</p>
+                                                <p className={style.textFranchiseEn}>{item.release.year}</p>
+                                                <p className={style.textFranchiseEn}>{item.release.episodes_total} эпизодов</p>
+                                            </div>
+                                            <div>
+                                                <p className={item.release_id === release?.id ? style.FranchisesNum : style.FranchisesNumGray}>#{item.sort_order}</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <p className={item.release_id === release?.id ? style.FranchisesNum : style.FranchisesNumGray}>#{item.sort_order}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </Link>
-                    )}
-                </div>
-            </div>
+                                </Link>
+                            )}
+                        </div>
+                    </div>
+                </>
+            : ""
+            }
         </div>
     )
 }

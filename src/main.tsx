@@ -7,6 +7,7 @@ import {
 import './index.css'
 import HomePages from './pages/home.tsx';
 import AnimePages from './pages/anime.tsx';
+import CatalogPages from './pages/catalog.tsx';
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
   {
     path: "/:id",
     element: <AnimePages/>,
+  },
+  {
+    path: "/catalog",
+    element: <CatalogPages/>,
   },
 ]);
 

@@ -44,12 +44,15 @@ const InfoHome:FC<InfoType> = ({img, name, text, alias}) => {
                             },
                         }}
                     >
-                        <Button className={style.btn}>
+                        
                             <Link style={{display:'flex', alignItems:"center", gap:"5px"}} to={`/${alias}`}>
-                                <IoPlayOutline size={28} color='#d56f1a'/>
-                                Смотреть
+                                <Button className={style.btn}>
+                                    <IoPlayOutline size={28} color='#d56f1a'/>
+                                    Смотреть
+                                </Button>
+                               
                             </Link>
-                        </Button>
+                        
                     </ConfigProvider>
                     <ConfigProvider
                         theme={{

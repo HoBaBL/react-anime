@@ -2,6 +2,7 @@ import { Carousel, Button, Flex, ConfigProvider } from 'antd';
 import style from './carousel.module.css'
 import { IoPlayOutline } from "react-icons/io5";
 import { FiPlus } from "react-icons/fi";
+import { Link } from 'react-router';
 
 function CarouselComp() {
     
@@ -50,10 +51,14 @@ function CarouselComp() {
                                         },
                                     }}
                                 >
-                                    <Button className={style.btn}>
-                                        <IoPlayOutline size={28} color='#d56f1a'/>
-                                        Смотреть
-                                    </Button>
+                                    <Link style={{display:'flex', alignItems:"center", gap:"5px"}} to={`/kimetsu-no-yaiba`}>
+                                        <Button className={style.btn}>
+                                            
+                                                <IoPlayOutline size={28} color='#d56f1a'/>
+                                                Смотреть
+                                            
+                                        </Button>
+                                    </Link>
                                 </ConfigProvider>
                                 <ConfigProvider
                                     theme={{
@@ -110,10 +115,14 @@ function CarouselComp() {
                                         },
                                     }}
                                 >
-                                    <Button className={style.btn}>
-                                        <IoPlayOutline size={28} color='#d56f1a'/>
-                                        Смотреть
-                                    </Button>
+                                    <Link style={{display:'flex', alignItems:"center", gap:"5px"}} to={`/ore-dake-level-up-na-ken`}>
+                                        <Button className={style.btn}>
+                                            
+                                                <IoPlayOutline size={28} color='#d56f1a'/>
+                                                Смотреть
+                                            
+                                        </Button>
+                                    </Link>
                                 </ConfigProvider>
                                 <ConfigProvider
                                     theme={{
@@ -168,10 +177,14 @@ function CarouselComp() {
                                         },
                                     }}
                                 >
-                                    <Button className={style.btn}>
-                                        <IoPlayOutline size={28} color='#d56f1a'/>
-                                        Смотреть
-                                    </Button>
+                                    <Link style={{display:'flex', alignItems:"center", gap:"5px"}} to={`/jujutsu-kaisen`}>
+                                        <Button className={style.btn}>
+                                            
+                                                <IoPlayOutline size={28} color='#d56f1a'/>
+                                                Смотреть
+                                            
+                                        </Button>
+                                    </Link>
                                 </ConfigProvider>
                                 <ConfigProvider
                                     theme={{
@@ -227,10 +240,14 @@ function CarouselComp() {
                                         },
                                     }}
                                 >
-                                    <Button className={style.btn}>
-                                        <IoPlayOutline size={28} color='#d56f1a'/>
-                                        Смотреть
-                                    </Button>
+                                    <Link style={{display:'flex', alignItems:"center", gap:"5px"}} to={`/bleach`}>
+                                        <Button className={style.btn}>
+                                            
+                                                <IoPlayOutline size={28} color='#d56f1a'/>
+                                                Смотреть
+                                            
+                                        </Button>
+                                    </Link>
                                 </ConfigProvider>
                                 <ConfigProvider
                                     theme={{
