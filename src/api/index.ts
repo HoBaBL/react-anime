@@ -20,6 +20,10 @@ export const getPopularCatalog = async (page:number) => {
     return popular
 }
 
+export const getLastCatalog = async (page:number) => {
+    const last: Anime[] = ((await $api.get(`anime/releases/latest?page=${page}&limit=18`)).data)
+    return last
+}
 
 //// получение последних релизов
 export const getLast = async () => {

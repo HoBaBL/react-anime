@@ -8,6 +8,7 @@ import './index.css'
 import HomePages from './pages/home.tsx';
 import AnimePages from './pages/anime.tsx';
 import CatalogPages from './pages/catalog.tsx';
+import CatalogNewPages from './pages/catalogNew.tsx';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: "/catalog",
     element: <CatalogPages/>,
+  },
+  {
+    path: "/catalog/new",
+    element: <CatalogNewPages/>,
   },
 ]);
 
