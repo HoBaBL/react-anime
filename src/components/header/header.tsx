@@ -27,10 +27,10 @@ function Header() {
                                 },
                             }}
                             >
-                            <Button className={style.headerMenuHref} type="link">Главная</Button>
                             <Link to={'/catalog'}><Button className={style.headerMenuHref} type="link">Популярные</Button></Link> 
-                            <Button className={style.headerMenuHref} type="link">Новые</Button>
-                            <Button className={style.headerMenuHref} type="link">Избранные</Button>
+                            <Link to={'/catalog/new'}><Button className={style.headerMenuHref} type="link">Новое</Button></Link>
+                            <Link to={'/catalog/genres'}><Button className={style.headerMenuHref} type="link">Жанры</Button></Link>
+                            <Button className={style.headerMenuHref} type="link">Избранное</Button>
                         </ConfigProvider>
                         
                     </Flex>

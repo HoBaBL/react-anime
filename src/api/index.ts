@@ -20,6 +20,8 @@ export const getPopularCatalog = async (page:number) => {
     return popular
 }
 
+
+//// получение новых релизов в каталог
 export const getLastCatalog = async (page:number) => {
     const last: Anime[] = ((await $api.get(`anime/releases/latest?page=${page}&limit=18`)).data)
     return last
@@ -43,12 +45,11 @@ export const getRandomGenres = async () => {
     return randomGenres
 }
 
-//// получение епизода по id
-// export const getEpisodes = async () => {
-//     const episodes: EpisodeType = ((await $api.get('anime/releases/episodes/9b5e26ee-598f-4b8b-b77e-188d3e456318')).data)
-//     console.log(episodes)
-//     return episodes
-// }
+//// получение всех жанров
+export const getGenres = async () => {
+    const Genres: Genre[] = ((await $api.get('anime/genres/')).data)
+    return Genres
+}
 
 //// получение релиза по id или alias
 export const getReleasesId = async (alias: string) => {

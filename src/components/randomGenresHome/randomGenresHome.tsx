@@ -3,6 +3,7 @@ import style from './randomGenresHome.module.css'
 import { getRandomGenres } from '../../api'
 import type { Genre } from '../../types/types'
 import { Button, ConfigProvider } from 'antd'
+import { Link } from 'react-router'
 
 const RandomGenres = () => {
     const [genres, setGenres] = useState<Genre[]>() 
@@ -31,7 +32,10 @@ const RandomGenres = () => {
                         },
                     }}
                     >
-                    <Button className={style.more} type="link">Больше</Button>
+                        <Link style={{display:'flex', alignItems:"center", gap:"5px"}} to={`/catalog/genres`}>
+                            <Button className={style.more} type="link">Больше</Button>
+                        </Link>
+                    
                 </ConfigProvider>
             </div>
             <div className={style.grid}>
