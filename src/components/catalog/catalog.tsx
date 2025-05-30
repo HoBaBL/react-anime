@@ -25,7 +25,6 @@ const Catalog:FC<CatalogType> = ({popularAnime, createPopular, hasMore, text}) =
                     next={createPopular}
                     hasMore={hasMore}
                     loader={<h4>Загрузка...</h4>}
-                    endMessage={<p>Больше данных нет</p>}
                     >
                     { popularAnime && popularAnime.map((item) => 
                         <Link to={`/${item.alias}`} key={item.id} className={style.popularBox}>
@@ -38,7 +37,7 @@ const Catalog:FC<CatalogType> = ({popularAnime, createPopular, hasMore, text}) =
                                     <p className={style.genres}>{item.name.english}</p>
                                     { !item.is_ongoing && item.episodes_total !== null ?  <p className={style.genres}>{item.episodes_total} серий</p> : ''}
                                     {item.genres !== undefined ? <p className={style.genres}>{item.genres.slice(0,3).map((i) => i.name).join(' • ')}</p> : ''} 
-                                    <p className={style.genres}>{item.year}</p>
+                                    <p className={style.genres}>{item.year} • {item.age_rating.label}</p>
                                     <p className={style.series}>{item.description}</p>
                                 </div>
                                 

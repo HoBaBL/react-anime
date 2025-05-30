@@ -10,6 +10,7 @@ import AnimePages from './pages/anime.tsx';
 import CatalogPages from './pages/catalog.tsx';
 import CatalogNewPages from './pages/catalogNew.tsx';
 import GenresPages from './pages/genres.tsx';
+import CatalogGenresPages from './pages/catalogGenres.tsx';
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
   {
     path: "/catalog/genres",
     element: <GenresPages/>,
+  },
+  {
+    path: "/genres/:id",
+    element: <CatalogGenresPages/>,
   },
 ]);
 

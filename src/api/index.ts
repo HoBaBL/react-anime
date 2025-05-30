@@ -62,3 +62,16 @@ export const getFranchises = async (id: number) => {
     const Franchises: FranchisesType = ((await $api.get(`/anime/franchises/release/${id}`)))
     return Franchises
 }
+
+//// получение релизов по жанру id
+export const getGenresReleases = async (id: string, page:number) => {
+    const GenresReleases: Anime[] = ((await $api.get(`/anime/genres/${id}/releases?page=${page}&limit=18`)).data.data)
+    console.log(GenresReleases)
+    return GenresReleases
+}
+
+//// получение данных о жанре id
+export const getGenresId = async (id: string ) => {
+    const Genres: Genre = ((await $api.get(`/anime/genres/${id}`)).data)
+    return Genres
+}
