@@ -1,6 +1,6 @@
 import { useEffect, useState, type FC } from 'react'
 import style from './popular.module.css'
-import type { IAnime } from '../../types/types'
+import type { Anime, IAnime } from '../../types/types'
 import { Button, ConfigProvider } from 'antd'
 import { Link } from 'react-router-dom';
 
@@ -22,6 +22,17 @@ const Popular:FC<PopularType> = ({text, api, url}) => {
     useEffect(() => {
         createPopular()
     },[])
+
+    function num_word(item:Anime){  
+        let value = item.episodes_total
+        let words = ['серия', 'серии', 'серий']
+        value = Math.abs(value!) % 100; 
+        let num = value % 10;
+        if(value > 10 && value < 20) return words[2]; 
+        if(num > 1 && num < 5) return words[1];
+        if(num == 1) return words[0]; 
+        return words[2];
+    }   
 
     return (
         <div className={style.container}>
@@ -56,7 +67,7 @@ const Popular:FC<PopularType> = ({text, api, url}) => {
                         <div className={style.absolute}>
                             <div className={style.padding}>
                                 <h3 className={style.absoluteText}>{item.name.main}</h3>
-                                { !item.is_ongoing && item.episodes_total !== null ?  <p className={style.series}>{item.episodes_total} серий</p> : ''}
+                                { !item.is_ongoing && item.episodes_total !== null ?  <p className={style.series}>{item.episodes_total} {num_word(item)}</p> : ''}
                                 {item.genres !== undefined ? <p className={style.genres}>{item.genres.slice(0,3).map((i) => i.name).join(' • ')}</p> : ''} 
                             </div>
                             

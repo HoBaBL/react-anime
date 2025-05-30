@@ -17,7 +17,7 @@ const InfoHome:FC<InfoType> = ({img, name, text, alias}) => {
     return (
         <div className={style.container}>
             <div>
-                <img className={style.img} src={img} alt="black clover" />
+                <img className={style.img} src={img} alt={alias} />
             </div>
             <div className={style.textBox}>
                 <h2 className={style.h2}>{name}</h2>

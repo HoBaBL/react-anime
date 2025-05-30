@@ -31,7 +31,7 @@ function HomePages() {
                 <Popular text={'Новые эпизоды'} api={getLast} url={'catalog/new'}/>
                 <InfoHome alias={infoArray[0].alias} name={infoArray[0].name} text={infoArray[0].text} img={infoArray[0].img}/>
                 <Popular url={'catalog'} text={'Случайные релизы'} api={getRandom}/>
-                <InfoHome alias={infoArray[0].alias} name={infoArray[1].name} text={infoArray[1].text} img={infoArray[1].img}/>
+                <InfoHome alias={infoArray[1].alias} name={infoArray[1].name} text={infoArray[1].text} img={infoArray[1].img}/>
                 <RandomGenres/>
                 <Footer/>
             </div>

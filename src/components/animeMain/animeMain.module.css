@@ -137,7 +137,7 @@
 .iframe {
     /* position: fixed; */
     border: none;
-    aspect-ratio: 16/9;
+    /* aspect-ratio: 16/9; */
     width: 100%;
 }
 

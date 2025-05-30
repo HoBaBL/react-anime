@@ -1,11 +1,12 @@
 import style from './animeMain.module.css'
 import { getReleasesId, getFranchises } from '../../api'
 import type { EpisodeType, Episode } from '../../types/typesEpisode'
-import { useEffect, useState } from 'react'
+import { useEffect, useState} from 'react'
 import { useParams } from 'react-router'
 import { Link } from 'react-router-dom';
 import { Modal, ConfigProvider } from 'antd';
 import type { FranchisesType } from '../../types/typesFranchises' 
+import ReactPlayer from 'react-player'
 
 const AnimeMain = () => {
     const [release, setRelease] = useState<EpisodeType>() 
@@ -14,6 +15,7 @@ const AnimeMain = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [episodes, setEpisodes] = useState<Episode>()
     const [Franchises, setFranchises] = useState<FranchisesType>()
+
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -74,7 +76,7 @@ const AnimeMain = () => {
                     <div>
                         <p className={style.textMenuGray}>Жанр: <span className={style.textMenu}>{release?.genres.map((item) => item.name).join(' • ')}</span></p>
                         <p className={style.textMenuGray}>Год выхода: <span className={style.textMenu}>{release?.year}</span></p>
-                        <p className={style.textMenuGray}>Количество серий: <span className={style.textMenu}>{release?.episodes_total}</span></p>
+                        { release?.episodes_total !== null ? <p className={style.textMenuGray}>Количество серий: <span className={style.textMenu}>{release?.episodes_total}</span></p> : ''}
                         <p className={style.textMenuGray}>Время серии: <span className={style.textMenu}>{release?.average_duration_of_episode} мин</span></p>
                     </div>
                 </div>
@@ -84,6 +86,7 @@ const AnimeMain = () => {
             </div>
             <div className={style.line}></div>
             <h2 className={style.h2}>Эпизоды</h2>
+            
             <ConfigProvider
                 theme={{
                     components: {
@@ -106,7 +109,13 @@ const AnimeMain = () => {
                         <p className={style.previewTextMax}>{episodes?.ordinal} эпизод</p>
                         <p className={style.previewText}>{episodes?.name}</p>
                     </div>
-                    <iframe className={style.iframe} src={`https://cr7tv.github.io/player/player2.html?url=${URLVideo}`} frameBorder="0" allowFullScreen></iframe>
+                    <ReactPlayer
+                        className={style.iframe}
+                        width={'100%'}
+                        height={'auto'}
+                        controls={true}
+                        url={URLVideo}
+                    />
                 </Modal>
             </ConfigProvider>
             <div className={style.episodesGrid}>
