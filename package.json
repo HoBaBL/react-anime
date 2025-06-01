@@ -17,6 +17,7 @@
     "antd": "^5.25.1",
     "apache-server-configs": "^6.0.0",
     "axios": "^1.9.0",
+    "fuse.js": "^7.1.0",
     "hls-ts": "^0.4.4",
     "hls.js": "^1.6.4",
     "react": "^19.1.0",

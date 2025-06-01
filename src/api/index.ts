@@ -75,3 +75,10 @@ export const getGenresId = async (id: string ) => {
     const Genres: Genre = ((await $api.get(`/anime/genres/${id}`)).data)
     return Genres
 }
+
+//// поиск
+export const getSearch = async (query: string ) => {
+    const search: Anime[] = ((await $api.get(`/app/search/releases?query=${query}`)).data)
+    console.log(search)
+    return search
+}
