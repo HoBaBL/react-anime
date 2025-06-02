@@ -131,14 +131,14 @@ const AnimeMain = () => {
             <div className={style.episodesGrid}>
                 {
                     release?.episodes.map((item) => 
-                        <div onClick={() => newURL(item)} className={style.preview} key={item.id}>
+                        <div style={{backgroundImage: `url(https://anilibria.wtf/${item.preview.src})`, backgroundSize: "cover"}} onClick={() => newURL(item)} className={style.preview} key={item.id}>
                             <div className={style.previewAbsolute}>
                                 <div style={{padding:'10px'}}>
                                     <p className={style.previewTextMax}>{item.ordinal} эпизод</p>
                                     <p className={style.previewText}>{item.name}</p>
                                 </div>
                             </div>
-                            <img className={style.imgPreview} src={`https://anilibria.wtf/${item.preview.src}`} alt="" />
+                            {/* <img className={style.imgPreview} src={`https://anilibria.wtf/${item.preview.src}`} alt="" /> */}
                         </div>
                     )
                 }
@@ -156,7 +156,10 @@ const AnimeMain = () => {
                                 <Link to={`/${item.release.alias}`} style={item.release_id === release?.id ? {backgroundColor: "#1a1919"} : {}} className={style.flexFranchise} key={item.id}>
                                     <div className={item.release_id === release?.id ? style.lineVert : style.lineVertNone}></div>
                                     <div className={style.flexFranchiseFlex}>
-                                        <img className={style.imgFranchise} src={`https://anilibria.wtf/${item.release.poster.preview}`} alt="" />
+                                        <div>
+                                            <img className={style.imgFranchise} src={`https://anilibria.wtf/${item.release.poster.preview}`} alt="" />
+                                        </div>
+                                        
                                         <div className={style.flexFlex}>
                                             <div>
                                                 <p className={style.textFranchise}>{item.release.name.main}</p>
