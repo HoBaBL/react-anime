@@ -32,6 +32,7 @@
 .grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
     grid-template-rows: repeat(1,306px);
     gap: 20px;
 }
@@ -58,4 +59,30 @@
     cursor: pointer;
     border-radius: 15px;
     background-color: black;
+}
+
+@media (max-width: 440px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(1,260px);
+    }
+    
+    .img {
+        height:225px;
+    }
+
+    .absolute {
+        height: 100%;
+    }
+    
+    .container {
+        margin-top: 0;
+        margin-bottom: 40px;
+    }
+}
+
+@media (max-width: 500px)  {
+    .h2 {
+        font-size: 24px;
+    }
 }

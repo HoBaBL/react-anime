@@ -28,7 +28,7 @@ const Catalog:FC<CatalogType> = ({popularAnime, createPopular, hasMore, text}) =
                     >
                     { popularAnime && popularAnime.map((item) => 
                         <Link to={`/${item.alias}`} key={item.id} className={style.popularBox}>
-                            <div>
+                            <div className={style.imgBox}>
                                 <img className={style.img} src={`https://anilibria.wtf/${item.poster.src}`} alt={item.name.english} />
                             </div>
                             <div className={style.absolute}>

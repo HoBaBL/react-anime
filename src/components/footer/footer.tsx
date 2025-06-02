@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import style from './footer.module.css'
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 
@@ -10,9 +11,9 @@ const Footer = () => {
                 <div className={style.box}>
                     <h3 className={style.h3}>Навигация</h3>
                     <ul className={style.ul}>
-                        <li className={style.li}>Главная</li>
-                        <li className={style.li}>Популярные</li>
-                        <li className={style.li}>Новые</li>
+                        <li className={style.li}><Link className={style.li} to={'/'}>Главная</Link></li>
+                        <li className={style.li}><Link to={'/catalog'} className={style.li}>Популярные</Link></li>
+                        <li className={style.li}><Link to={'/catalog/new'} className={style.li}>Новые</Link></li>
                         <li className={style.li}>Избранные</li>
                     </ul>
                 </div>

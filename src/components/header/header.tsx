@@ -46,7 +46,7 @@ function Header() {
                         <h2 className={style.title}>Anime Home</h2>
                     </Link>
                     
-                    <Flex gap="large" wrap>
+                    <Flex gap="large" wrap className={style.menuHeader}>
                         <ConfigProvider
                             theme={{
                                 components: {
@@ -65,7 +65,7 @@ function Header() {
                         </ConfigProvider>
                         
                     </Flex>
-                    <Flex align='center' style={{width:"320px", position:"relative"}} gap="middle">
+                    <Flex align='center' style={{ position:"relative"}} gap="middle">
                         <ConfigProvider
                             theme={{
                                 components: {
@@ -81,7 +81,7 @@ function Header() {
                                 },
                             }}
                             >
-                            <Input onClick={() => setSearchActive(true)} size="large" className={style.input} value={query} onChange={(e) => updateQuery(e.target.value)} placeholder="Поиск" prefix={<IoSearch size={20} color='#d56f1a'/>} />
+                            <Input style={{width:"280px"}} onClick={() => setSearchActive(true)} size="large" className={style.input} value={query} onChange={(e) => updateQuery(e.target.value)} placeholder="Поиск" prefix={<IoSearch size={20} color='#d56f1a'/>} />
                         </ConfigProvider>
                         <Button className={style.headerMenuHref} type="link"><FaRegUser size={22} color='#d56f1a'/></Button>
                         <div className={searchActive && query.length > 0 ? style.searchActive : style.searchActiveNone} ref={refTask}>

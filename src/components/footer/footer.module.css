@@ -31,6 +31,7 @@
 .li {
     margin-bottom: 20px;
     cursor: pointer;
+    color: #e4e4e4;
 }
 
 .flex {
@@ -51,4 +52,25 @@
     margin-top: 20px;
     display: flex;
     gap: 20px;
+}
+
+@media (max-width: 625px) {
+    .h3 {
+        font-size: 20px;
+    }
+
+    .ul {
+        font-size: 16px;
+         padding: 0 20px;
+    }
+}
+
+@media (max-width: 520px) {
+    .flex {
+        display: block;
+    }
+
+    .container {
+       padding-bottom: 40px;
+    }
 }

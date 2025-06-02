@@ -21,7 +21,7 @@ function CarouselComp() {
                     },
                 }}
                 >
-                <Carousel arrows={true} autoplay={{ dotDuration: true }} autoplaySpeed={8000}>
+                <Carousel arrows={true} autoplay={{ dotDuration: true }} autoplaySpeed={80000}>
                     <div className={style.carouselDemonSlayer}>
                         <div className={style.carouselBlockText}>
                             <h2 className={style.h2}>Клинок, рассекающий демонов</h2>
@@ -94,7 +94,7 @@ function CarouselComp() {
                                 10 лет назад открылись врата в другой мир, где людям дозволено убивать монстров. 
                                 Так появились охотники, преследующие и уничтожающие тварей. Но не каждому из них суждено повысить свой уровень и стать сильнее. 
                                 Сон Джин-у был охотником низшего E-ранга, у которого не было ни единого шанса продвинуться по ранговой лестнице, пока однажды он случайно не очутился в подземелье D-ранга. 
-                                Чуть не погибнув от рук чудовищ, Джин-у открывает секрет повышения уровня.
+                                
                             </p>
                             <Flex style={{marginTop:'30px'}} align='center' gap="middle" wrap>
                                 <ConfigProvider

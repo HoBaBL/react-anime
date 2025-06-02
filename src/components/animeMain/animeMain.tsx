@@ -152,7 +152,7 @@ const AnimeMain = () => {
                                                 <p className={style.textFranchise}>{item.release.name.main}</p>
                                                 <p className={style.textFranchiseEn}>{item.release.name.english}</p>
                                                 <p className={style.textFranchiseEn}>{item.release.year}</p>
-                                                <p className={style.textFranchiseEn}>{item.release.episodes_total} эпизодов</p>
+                                                {item.release?.episodes_total !== null ? <p className={style.textFranchiseEn}>{item.release.episodes_total} эпизодов</p> : ''} 
                                             </div>
                                             <div>
                                                 <p className={item.release_id === release?.id ? style.FranchisesNum : style.FranchisesNumGray}>#{item.sort_order}</p>

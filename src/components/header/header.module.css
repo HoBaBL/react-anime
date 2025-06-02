@@ -81,3 +81,15 @@
 .searchActiveNone {
     display: none;
 }
+
+@media (max-width: 900px) {
+    .menuHeader {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .input {
+        display: none;
+    }
+}

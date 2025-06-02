@@ -81,3 +81,65 @@
     padding: 0 0;
     line-height: 0px;
 }
+
+@media (max-width: 710px) {
+    .carouselBlockText {
+        padding: 20px 60px;
+    }
+
+    .h2 {
+        font-size: 26px;
+    }
+
+    .p {
+        font-size: 16px;
+        margin: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 7; /* number of lines to show */
+        line-clamp: 7; 
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .carouselDemonSlayer {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://i.pinimg.com/originals/5a/de/4a/5ade4a7b646b3bdc662862c0edfd8461.jpg');
+    width: 100%;
+    height: 30em;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+.carouselAttackOnTitan {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://avatars.mds.yandex.net/i?id=5141b5a06ffb1caf5e11b0af05cef828_l-10299621-images-thumbs&n=13');
+    width: 100%;
+    height: 30em;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top center;
+}
+
+.carouselJujutsuKaisen {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://avatars.mds.yandex.net/i?id=6dc96751a162776b5432ff4cb66f0a30_l-8193383-images-thumbs&n=13');
+    width: 100%;
+    height: 30em;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+.carouselBleach {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://avatars.mds.yandex.net/i?id=1e3f440c1f4941d99fcd64145913ac46_l-5284123-images-thumbs&n=13');
+    width: 100%;
+    height: 30em;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+}
+
+@media (max-width: 500px) {
+    .container {
+        display: none;
+    }
+}
