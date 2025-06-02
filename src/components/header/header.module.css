@@ -25,6 +25,16 @@
     padding: 0;
 }
 
+.headerMenuHrefAcc {
+    font-weight: 500;
+    font-size: 16px;
+    padding: 0;
+}
+
+.headerMenuBurger {
+    display: none;
+}
+
 .headerFlex {
     display: flex;
     justify-content: space-between;
@@ -32,6 +42,12 @@
 }
 
 .input {
+    background-color: #2e2e2e;
+    color: #e4e4e4;
+    border-radius: 15px;
+}
+
+.inputDrawer {
     background-color: #2e2e2e;
     color: #e4e4e4;
     border-radius: 15px;
@@ -51,6 +67,20 @@
     z-index: 100;
     max-height: 400px;
     width: 290px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.searchActiveDrawer {
+    position: absolute;
+    /* top: 53px; */
+    background-color:#0c0c0c ;
+    padding: 10px;
+    border-radius: 10px;
+    z-index: 100;
+    max-height: 400px;
+    width: 260px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -82,9 +112,40 @@
     display: none;
 }
 
+.searchActiveNoneDrawer {
+    display: none;
+}
+
+.flexColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.drawer {
+    background-color:#242424;
+}
+
+.flexDrawer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 @media (max-width: 900px) {
     .menuHeader {
         display: none;
+    }
+
+    .headerMenuBurger {
+        font-weight: 500;
+        font-size: 16px;
+        padding: 0;
+        display: block;
+    }
+
+    .headerMenuHref {
+        font-size: 18px;
     }
 }
 
@@ -92,4 +153,9 @@
     .input {
         display: none;
     }
+
+    .headerMenuHrefAcc {
+        display: none;
+    }
+
 }
