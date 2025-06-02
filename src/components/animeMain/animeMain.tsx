@@ -53,6 +53,15 @@ const AnimeMain = () => {
         }
     }
 
+    const screenWidth = window.screen.width; 
+    let modalWidth = ''
+
+    if (screenWidth < 770 ) {
+        modalWidth = '90%'
+    } else {
+        modalWidth = '45%'
+    }
+
     return (
         <div className={style.container}>
             <div className={style.flexHeader}>
@@ -97,7 +106,8 @@ const AnimeMain = () => {
                 }}
                 >
                 <Modal
-                    width={'45%'}
+                    className={style.modalModal}
+                    width={modalWidth}
                     wrapClassName={style.modal}
                     closable={false}
                     footer

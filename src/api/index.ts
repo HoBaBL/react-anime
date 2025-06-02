@@ -54,7 +54,6 @@ export const getGenres = async () => {
 //// получение релиза по id или alias
 export const getReleasesId = async (alias: string) => {
     const ReleasesId: EpisodeType = ((await $api.get(`anime/releases/${alias}`)).data)
-    console.log(ReleasesId)
     return ReleasesId
 }
 
@@ -79,6 +78,5 @@ export const getGenresId = async (id: string ) => {
 //// поиск
 export const getSearch = async (query: string ) => {
     const search: Anime[] = ((await $api.get(`/app/search/releases?query=${query}`)).data)
-    console.log(search)
     return search
 }

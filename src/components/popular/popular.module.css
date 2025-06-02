@@ -141,6 +141,19 @@
         margin-top: 0;
         margin-bottom: 40px;
     }
+
+    .padding {
+        padding: 0;
+    }
+
+    .absoluteText {
+        margin: 0;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* number of lines to show */
+            line-clamp: 3; 
+        -webkit-box-orient: vertical;
+    }
 }
 
 @media (max-width: 500px)  {
