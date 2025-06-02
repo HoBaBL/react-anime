@@ -136,6 +136,10 @@
     .absolute {
         height: 100%;
     }
+
+    .popularBox:hover .absolute {
+        height: 100%;
+    }
     
     .container {
         margin-top: 0;
