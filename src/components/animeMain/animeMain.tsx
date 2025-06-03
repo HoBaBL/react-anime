@@ -4,9 +4,12 @@ import type { EpisodeType, Episode } from '../../types/typesEpisode'
 import { useEffect, useState} from 'react'
 import { useParams } from 'react-router'
 import { Link } from 'react-router-dom';
-import { Modal, ConfigProvider } from 'antd';
+import { Modal, ConfigProvider, Input, Button } from 'antd';
 import type { FranchisesType } from '../../types/typesFranchises' 
+import { IoSearch } from "react-icons/io5";
 import ReactPlayer from 'react-player'
+import { FaSortAmountDownAlt, FaSortAmountUp } from "react-icons/fa";
+import type { OnProgressProps } from 'react-player/base'
 
 const AnimeMain = () => {
     const [release, setRelease] = useState<EpisodeType>() 
@@ -15,6 +18,9 @@ const AnimeMain = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [episodes, setEpisodes] = useState<Episode>()
     const [Franchises, setFranchises] = useState<FranchisesType>()
+    const [query, updateQuery] = useState('');
+    const [sortNew, setSortNew] = useState(true)
+    const [lastEpisodesLocal, setLastEpisidesLocal] = useState<string[]>(JSON.parse(localStorage.getItem('last_episodes')!) || [])
 
 
     const showModal = () => {
@@ -43,6 +49,7 @@ const AnimeMain = () => {
 
     function newURL(item: Episode) {
         setEpisodes(item)
+        
         showModal()
         if (item.hls_1080 !== null) {
             setURLVideo(item.hls_1080)
@@ -61,6 +68,23 @@ const AnimeMain = () => {
     } else {
         modalWidth = '45%'
     }
+
+    function reverseRelease() {
+        release?.episodes.reverse()
+    }
+
+    function lastEpisodes(progress:OnProgressProps) {
+            if (Math.trunc(progress.playedSeconds) > 9 && !lastEpisodesLocal.includes(episodes?.id!)) {
+                const copy = [...lastEpisodesLocal]
+                const lastEpisodes = episodes?.id
+                copy.push(lastEpisodes!)
+                setLastEpisidesLocal(copy)
+                localStorage.setItem('last_episodes', JSON.stringify(copy))
+            }
+        
+    }
+
+    console.log(lastEpisodesLocal)
 
     return (
         <div className={style.container}>
@@ -125,20 +149,72 @@ const AnimeMain = () => {
                         height={'auto'}
                         controls={true}
                         url={URLVideo}
+                        // onStart={() => lastEpisodes(episodes?.id)}
+                        onProgress={(progress) => {
+                            lastEpisodes(progress)
+                        }}
                     />
                 </Modal>
             </ConfigProvider>
+            <div className={style.inputBox}>
+                <ConfigProvider
+                    theme={{
+                        components: {
+                        Input: {
+                            hoverBorderColor:'none',
+                            activeBorderColor:'#d56f1a',
+                            hoverBg: '#2e2e2e',
+                            colorBorder: "transparent",
+                            activeBg: '#2e2e2e',
+                            colorTextPlaceholder: '#703a2e'
+                        },
+                        },
+                    }}
+                    >
+                    <Input style={{width:"100%"}} size="large" className={style.input} value={query} onChange={(e) => updateQuery(e.target.value)} placeholder="Введите номер или название эпизода..." prefix={<IoSearch size={20} color='#d56f1a'/>} />
+                </ConfigProvider>
+                <ConfigProvider
+                    theme={{
+                        components: {
+                        Button: {
+                            defaultBg: 'transparent',
+                            defaultBorderColor:'#d56f1a',
+                            defaultColor:'#e4e4e4',
+                            contentFontSize: 20,
+                            defaultActiveBg: 'transparent',
+                            defaultHoverBg: '#1f1f1f',
+                            defaultHoverColor: '#1f1f1f',
+                            defaultActiveColor:'#e4e4e4' ,
+                            defaultActiveBorderColor:'#d56f1a',
+                            defaultHoverBorderColor: '#d56f1a'
+                        },
+                        },
+                    }}
+                >   
+                    {sortNew ?
+                        <Button className={style.btnSort} onClick={() => {setSortNew(false);reverseRelease()}}><FaSortAmountDownAlt size={20} color='#d56f1a'/></Button>
+                        :
+                        <Button className={style.btnSort} onClick={() => {setSortNew(true);reverseRelease()}}><FaSortAmountUp size={20} color='#d56f1a'/></Button>
+                    }
+                    
+                </ConfigProvider>
+            </div>
+            <p style={{fontSize:'14px', marginBottom: '30px'}} className={style.textMenuGray}>Просмотрено {lastEpisodesLocal.length} из {release?.episodes_total}</p>
             <div className={style.episodesGrid}>
-                {
+                {   
                     release?.episodes.map((item) => 
-                        <div style={{backgroundImage: `url(https://anilibria.wtf/${item.preview.src})`, backgroundSize: "cover"}} onClick={() => newURL(item)} className={style.preview} key={item.id}>
+                        <div style={{backgroundImage: `url(https://anilibria.wtf/${item.preview.src})`, backgroundSize: "cover" }} onClick={() => newURL(item)} className={lastEpisodesLocal.find((i) => i === item.id) ? style.previewActive : style.preview} key={item.id}>
                             <div className={style.previewAbsolute}>
                                 <div style={{padding:'10px'}}>
                                     <p className={style.previewTextMax}>{item.ordinal} эпизод</p>
                                     <p className={style.previewText}>{item.name}</p>
+                                    
                                 </div>
                             </div>
-                            {/* <img className={style.imgPreview} src={`https://anilibria.wtf/${item.preview.src}`} alt="" /> */}
+                            {lastEpisodesLocal.find((i) => i === item.id) ? 
+                                <p style={{padding:'10px', color:'#d56f1a', alignItems:'center'}} className={style.previewTextMax}>Просмотрен</p> : ''
+                            }
+                            
                         </div>
                     )
                 }

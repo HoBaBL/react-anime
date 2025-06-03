@@ -109,6 +109,18 @@
     cursor: pointer;
 }
 
+.previewActive {
+    border-radius: 15px;
+    position: relative;
+    height: 166px;
+    background-color: #252525;
+    cursor: pointer;
+    border:#d56f1a solid 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .previewText {
     color: #e4e4e4;
     margin: 0;
@@ -125,7 +137,7 @@
 
 .previewAbsolute {
     /* padding: 10px; */
-    position: absolute;
+    /* position: absolute; */
     z-index: 10;
     background-color: rgb(5, 5, 5,0.7);
     width: 100%;
@@ -244,6 +256,25 @@
     width: 45%;
 }
 
+.input {
+    background-color: #2e2e2e;
+    color: #e4e4e4;
+    border-radius: 15px;
+}
+
+.inputBox {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.btnSort {
+    background-color: #252525;
+    border: solid #d56f1a 1px;
+    padding: 10px;
+    height: auto;
+}
+
 
 @media (max-width: 770px) {
     .flexHeader {
@@ -257,10 +288,18 @@
     .preview {
         height: 240px;
     }
+
+    .previewActive {
+        height: 240px;
+    }
 }
 
 @media (max-width: 375px) {
     .preview {
+        height: 200px;
+    }
+
+    .previewActive {
         height: 200px;
     }
 

@@ -53,10 +53,8 @@ function CarouselComp() {
                                 >
                                     <Link style={{display:'flex', alignItems:"center", gap:"5px"}} to={`/kimetsu-no-yaiba`}>
                                         <Button className={style.btn}>
-                                            
                                                 <IoPlayOutline size={28} color='#d56f1a'/>
                                                 Смотреть
-                                            
                                         </Button>
                                     </Link>
                                 </ConfigProvider>
