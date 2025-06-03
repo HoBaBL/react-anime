@@ -74,7 +74,7 @@ const AnimeMain = () => {
     }
 
     function lastEpisodes(progress:OnProgressProps) {
-            if (Math.trunc(progress.playedSeconds) > 9 && !lastEpisodesLocal.includes(episodes?.id!)) {
+            if (Math.trunc(progress.playedSeconds) > 900 && !lastEpisodesLocal.includes(episodes?.id!)) {
                 const copy = [...lastEpisodesLocal]
                 const lastEpisodes = episodes?.id
                 copy.push(lastEpisodes!)
