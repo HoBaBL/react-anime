@@ -11,6 +11,12 @@ import ReactPlayer from 'react-player'
 import { FaSortAmountDownAlt, FaSortAmountUp } from "react-icons/fa";
 import type { OnProgressProps } from 'react-player/base'
 
+
+type lastType = {
+    epID: string | undefined, 
+    relID: number | undefined
+}
+
 const AnimeMain = () => {
     const [release, setRelease] = useState<EpisodeType>() 
     const [URLVideo, setURLVideo] = useState('')
@@ -20,7 +26,7 @@ const AnimeMain = () => {
     const [Franchises, setFranchises] = useState<FranchisesType>()
     const [query, updateQuery] = useState('');
     const [sortNew, setSortNew] = useState(true)
-    const [lastEpisodesLocal, setLastEpisidesLocal] = useState<string[]>(JSON.parse(localStorage.getItem('last_episodes')!) || [])
+    const [lastEpisodesLocal, setLastEpisidesLocal] = useState<lastType[]>(JSON.parse(localStorage.getItem('last_episodes')!) || [])
 
 
     const showModal = () => {
@@ -74,17 +80,17 @@ const AnimeMain = () => {
     }
 
     function lastEpisodes(progress:OnProgressProps) {
-            if (Math.trunc(progress.playedSeconds) > 900 && !lastEpisodesLocal.includes(episodes?.id!)) {
-                const copy = [...lastEpisodesLocal]
-                const lastEpisodes = episodes?.id
-                copy.push(lastEpisodes!)
-                setLastEpisidesLocal(copy)
-                localStorage.setItem('last_episodes', JSON.stringify(copy))
+        if (Math.trunc(progress.playedSeconds) > 900 && !lastEpisodesLocal.find(i => i.epID === episodes?.id)) {
+            const copy = [...lastEpisodesLocal]
+            const lastEpisodes = {
+                epID: episodes?.id, 
+                relID: release?.id
             }
-        
+            copy.push(lastEpisodes!)
+            setLastEpisidesLocal(copy)
+            localStorage.setItem('last_episodes', JSON.stringify(copy))
+        }
     }
-
-    console.log(lastEpisodesLocal)
 
     return (
         <div className={style.container}>
@@ -199,11 +205,11 @@ const AnimeMain = () => {
                     
                 </ConfigProvider>
             </div>
-            <p style={{fontSize:'14px', marginBottom: '30px'}} className={style.textMenuGray}>Просмотрено {lastEpisodesLocal.length} из {release?.episodes_total}</p>
+            <p style={{fontSize:'14px', marginBottom: '30px'}} className={style.textMenuGray}>Просмотрено {lastEpisodesLocal.filter((e) => e.relID === release?.id).length} из {release?.episodes_total}</p>
             <div className={style.episodesGrid}>
                 {   
                     release?.episodes.map((item) => 
-                        <div style={{backgroundImage: `url(https://anilibria.wtf/${item.preview.src})`, backgroundSize: "cover" }} onClick={() => newURL(item)} className={lastEpisodesLocal.find((i) => i === item.id) ? style.previewActive : style.preview} key={item.id}>
+                        <div style={{backgroundImage: `url(https://anilibria.wtf/${item.preview.src})`, backgroundSize: "cover" }} onClick={() => newURL(item)} className={lastEpisodesLocal.find((i) => i.epID === item.id) ? style.previewActive : style.preview} key={item.id}>
                             <div className={style.previewAbsolute}>
                                 <div style={{padding:'10px'}}>
                                     <p className={style.previewTextMax}>{item.ordinal} эпизод</p>
@@ -211,7 +217,7 @@ const AnimeMain = () => {
                                     
                                 </div>
                             </div>
-                            {lastEpisodesLocal.find((i) => i === item.id) ? 
+                            {lastEpisodesLocal.find((i) => i.epID === item.id) ? 
                                 <p style={{padding:'10px', color:'#d56f1a', alignItems:'center'}} className={style.previewTextMax}>Просмотрен</p> : ''
                             }
                             
