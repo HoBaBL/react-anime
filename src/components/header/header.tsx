@@ -5,9 +5,8 @@ import { IoSearch } from "react-icons/io5";
 import { Link } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { getSearch } from '../../api';
-import type { Account, Anime } from '../../types/types';
+import type { Anime } from '../../types/types';
 import { RxHamburgerMenu, RxCross2 } from "react-icons/rx";
-import { getAccGoogle, getAccToken } from '../../api';
 
 function Header() {
     const [query, updateQuery] = useState('');
