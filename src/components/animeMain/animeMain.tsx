@@ -1,7 +1,7 @@
 import style from './animeMain.module.css'
 import { getReleasesId, getFranchises } from '../../api'
 import type { EpisodeType, Episode } from '../../types/typesEpisode'
-import { useEffect, useState} from 'react'
+import { useEffect, useRef, useState} from 'react'
 import { useParams } from 'react-router'
 import { Link } from 'react-router-dom';
 import { Modal, ConfigProvider, Input, Button } from 'antd';
@@ -14,7 +14,8 @@ import type { OnProgressProps } from 'react-player/base'
 
 type lastType = {
     epID: string | undefined, 
-    relID: number | undefined
+    relID: number | undefined,
+    playerSeek: number
 }
 
 const AnimeMain = () => {
@@ -27,6 +28,7 @@ const AnimeMain = () => {
     const [query, updateQuery] = useState('');
     const [sortNew, setSortNew] = useState(true)
     const [lastEpisodesLocal, setLastEpisidesLocal] = useState<lastType[]>(JSON.parse(localStorage.getItem('last_episodes')!) || [])
+    const player = useRef<ReactPlayer>(null)
 
 
     const showModal = () => {
@@ -80,15 +82,30 @@ const AnimeMain = () => {
     }
 
     function lastEpisodes(progress:OnProgressProps) {
-        if (Math.trunc(progress.playedSeconds) > 900 && !lastEpisodesLocal.find(i => i.epID === episodes?.id)) {
-            const copy = [...lastEpisodesLocal]
+        const copy = [...lastEpisodesLocal]
+        if (!lastEpisodesLocal.find(i => i.epID === episodes?.id)) {
+            
             const lastEpisodes = {
                 epID: episodes?.id, 
-                relID: release?.id
+                relID: release?.id,
+                playerSeek: 0
             }
             copy.push(lastEpisodes!)
             setLastEpisidesLocal(copy)
             localStorage.setItem('last_episodes', JSON.stringify(copy))
+        } else {
+            const copyEpisodes = lastEpisodesLocal.find(i => i.epID === episodes?.id)
+            if (copyEpisodes != undefined && progress.playedSeconds !== 0) {
+                copyEpisodes.playerSeek = Math.trunc(progress.playedSeconds)
+            }
+            localStorage.setItem('last_episodes', JSON.stringify(copy))
+        }
+    }
+
+    function seek() {
+        const copy = lastEpisodesLocal.find(i => i.epID === episodes?.id)
+        if (player.current !== null && copy != undefined) {
+            player.current.seekTo(copy.playerSeek)
         }
     }
 
@@ -150,12 +167,14 @@ const AnimeMain = () => {
                         <p className={style.previewText}>{episodes?.name}</p>
                     </div>
                     <ReactPlayer
+                        // onPause={() => stopSeek()}
+                        ref={player}
                         className={style.iframe}
                         width={'100%'}
                         height={'auto'}
                         controls={true}
                         url={URLVideo}
-                        // onStart={() => lastEpisodes(episodes?.id)}
+                        onStart={() => seek()}
                         onProgress={(progress) => {
                             lastEpisodes(progress)
                         }}
@@ -209,7 +228,7 @@ const AnimeMain = () => {
             <div className={style.episodesGrid}>
                 {   
                     release?.episodes.map((item) => 
-                        <div style={{backgroundImage: `url(https://anilibria.wtf/${item.preview.src})`, backgroundSize: "cover" }} onClick={() => newURL(item)} className={lastEpisodesLocal.find((i) => i.epID === item.id) ? style.previewActive : style.preview} key={item.id}>
+                        <div style={{backgroundImage: `url(https://anilibria.wtf/${item.preview.src})`, backgroundSize: "cover" }} onClick={() => newURL(item)} className={lastEpisodesLocal.find((i) => i.epID === item.id && i.playerSeek > 1080) ? style.previewActive : style.preview} key={item.id}>
                             <div className={style.previewAbsolute}>
                                 <div style={{padding:'10px'}}>
                                     <p className={style.previewTextMax}>{item.ordinal} эпизод</p>
@@ -217,8 +236,11 @@ const AnimeMain = () => {
                                     
                                 </div>
                             </div>
-                            {lastEpisodesLocal.find((i) => i.epID === item.id) ? 
-                                <p style={{padding:'10px', color:'#d56f1a', alignItems:'center'}} className={style.previewTextMax}>Просмотрен</p> : ''
+                            {lastEpisodesLocal.find((i) => i.epID === item.id && i.playerSeek > 1080) ? 
+                                <div>
+                                    <p style={{padding:'10px', color:'#d56f1a', alignItems:'center'}} className={style.previewTextMax}>Просмотрен</p> 
+                                </div>
+                                : ''
                             }
                             
                         </div>

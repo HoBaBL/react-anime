@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { IAnime, Genre, Anime } from "../types/types";
+import type { IAnime, Genre, Anime, Account } from "../types/types";
 import type { EpisodeType } from "../types/typesEpisode";
 import type { FranchisesType } from "../types/typesFranchises";
 
@@ -16,7 +16,6 @@ export const getPopular = async () => {
 //// популярные релизы в каталог
 export const getPopularCatalog = async (page:number) => {
     const popular: Anime[] = ((await $api.get(`anime/catalog/releases?page=${page}&limit=18&f[types]&f[genres]&f[search]&f[sorting]=RATING_DESC&f[seasons]&f[age_ratings]&f[years][to_year]=2026&f[years][from_year]=1995&f[publish_statuses]&f[production_statuses]`)).data.data)   
-    console.log(popular)
     return popular
 }
 
@@ -79,4 +78,16 @@ export const getGenresId = async (id: string ) => {
 export const getSearch = async (query: string ) => {
     const search: Anime[] = ((await $api.get(`/app/search/releases?query=${query}`)).data)
     return search
+}
+
+//// вход в аккаунт через Google
+export const getAccGoogle = async () => {
+    const acc: Account = ((await $api.get(`/accounts/users/auth/social/google/login`)).data)
+    return acc
+}
+
+//// вход через полученный токен 
+export const getAccToken = async (token: string) => {
+    const acc = ((await $api.get(`/accounts/users/auth/social/authenticate?state=${token}`)))
+    return acc
 }

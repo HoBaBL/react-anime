@@ -5,6 +5,11 @@ export interface IAnime {
   meta: Meta
 }
 
+export interface Account {
+  url: string,
+  state: string
+}
+
 export interface Anime {
   id: number
   type: Type
