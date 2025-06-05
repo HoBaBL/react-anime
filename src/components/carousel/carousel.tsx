@@ -21,7 +21,7 @@ function CarouselComp() {
                     },
                 }}
                 >
-                <Carousel arrows={true} autoplay={{ dotDuration: true }} autoplaySpeed={80000}>
+                <Carousel arrows={true} autoplay={{ dotDuration: true }} autoplaySpeed={8000}>
                     <div className={style.carouselDemonSlayer}>
                         <div className={style.carouselBlockText}>
                             <h2 className={style.h2}>Клинок, рассекающий демонов</h2>
