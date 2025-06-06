@@ -1,5 +1,5 @@
 # Anime Home
-Сайт для просмотра аниме. Используется Anilibria API
+Сайт для просмотра аниме. Используется Anilibria API. Проект учебный, не для коммерции
 
 ## Проект развернут на Vercel по ссылке
 https://react-anime-ten.vercel.app/
