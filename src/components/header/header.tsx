@@ -148,7 +148,7 @@ function Header() {
                                                     releases.slice(0, 4).map((item) => 
                                                         <Link onClick={() => setSearchActiveDrawer(false)} key={item.id} to={`/${item.alias}`} className={style.flexSearch}>
                                                             <div>
-                                                                <img className={style.img} src={`https://anilibria.wtf/${item.poster.thumbnail}`} alt="" />
+                                                                <img className={style.img} src={`https://anilibria.top/${item.poster.thumbnail}`} alt="" />
                                                             </div>
                                                             <p className={style.searchText}>{item.name.main}</p>
                                                         </Link>
@@ -172,7 +172,7 @@ function Header() {
                                 releases.slice(0, 4).map((item) => 
                                     <Link onClick={() => setSearchActive(false)} key={item.id} to={`/${item.alias}`} className={style.flexSearch}>
                                         <div>
-                                            <img className={style.img} src={`https://anilibria.wtf/${item.poster.thumbnail}`} alt="" />
+                                            <img className={style.img} src={`https://anilibria.top/${item.poster.thumbnail}`} alt="" />
                                         </div>
                                         <p className={style.searchText}>{item.name.main}</p>
                                     </Link>

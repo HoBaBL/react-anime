@@ -3,8 +3,9 @@ import type { IAnime, Genre, Anime, Account } from "../types/types";
 import type { EpisodeType } from "../types/typesEpisode";
 import type { FranchisesType } from "../types/typesFranchises";
 
+// https://anilibria.wtf/api/v1/
 const $api = axios.create({
-    baseURL: 'https://anilibria.wtf/api/v1/'
+    baseURL: 'https://anilibria.top/api/v1/'
 })
 
 //// получение популярных релизов

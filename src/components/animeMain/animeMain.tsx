@@ -48,6 +48,7 @@ const AnimeMain = () => {
         const timeoutFranchises = await getFranchises(timeoutPopular.id!)
         setRelease(timeoutPopular)
         setFranchises(timeoutFranchises)
+        console.log(timeoutPopular)
     }
 
     useEffect(() => {
@@ -112,7 +113,7 @@ const AnimeMain = () => {
     return (
         <div className={style.container}>
             <div className={style.flexHeader}>
-                <img className={style.img} src={`https://anilibria.wtf/${release?.poster.src}`} alt="" />
+                <img className={style.img} src={`https://anilibria.top/${release?.poster.src}`} alt="" />
                 <div>
                     <h1 className={style.h1}>{release?.name.main}</h1>
                     <p className={style.text}>{release?.name.english}</p>
@@ -228,7 +229,7 @@ const AnimeMain = () => {
             <div className={style.episodesGrid}>
                 {   
                     release?.episodes.map((item) => 
-                        <div style={{backgroundImage: `url(https://anilibria.wtf/${item.preview.src})`, backgroundSize: "cover" }} onClick={() => newURL(item)} className={lastEpisodesLocal.find((i) => i.epID === item.id && i.playerSeek > 1080) ? style.previewActive : style.preview} key={item.id}>
+                        <div style={{backgroundImage: `url(https://anilibria.top/${item.preview.src})`, backgroundSize: "cover" }} onClick={() => newURL(item)} className={lastEpisodesLocal.find((i) => i.epID === item.id && i.playerSeek > 1080) ? style.previewActive : style.preview} key={item.id}>
                             <div className={style.previewAbsolute}>
                                 <div style={{padding:'10px'}}>
                                     <p className={style.previewTextMax}>{item.ordinal} эпизод</p>
@@ -261,7 +262,7 @@ const AnimeMain = () => {
                                     <div className={item.release_id === release?.id ? style.lineVert : style.lineVertNone}></div>
                                     <div className={style.flexFranchiseFlex}>
                                         <div>
-                                            <img className={style.imgFranchise} src={`https://anilibria.wtf/${item.release.poster.preview}`} alt="" />
+                                            <img className={style.imgFranchise} src={`https://anilibria.top/${item.release.poster.preview}`} alt="" />
                                         </div>
                                         
                                         <div className={style.flexFlex}>

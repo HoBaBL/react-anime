@@ -72,7 +72,7 @@ const Popular:FC<PopularType> = ({text, api, url}) => {
                             </div>
                             
                         </div>
-                        <img className={style.img} src={`https://anilibria.wtf/${item.poster.src}`} alt={item.name.english} />
+                        <img className={style.img} src={`https://anilibria.top/${item.poster.src}`} alt={item.name.english} />
                     </Link>
                 )}
             </div>

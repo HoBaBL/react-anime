@@ -52,7 +52,7 @@ const CatalogGenres = () => {
     return (
         <div className={style.container}>
             <div className={style.flex}>
-                <img className={style.imgGenres} src={`https://anilibria.wtf/${genres?.image.preview}`} alt="" />
+                <img className={style.imgGenres} src={`https://anilibria.top/${genres?.image.preview}`} alt="" />
                 <div>
                     <h1 className={style.h1}>{genres?.name}</h1>
                     <p className={style.genres}>{genres?.total_releases} {num_word()}</p>
@@ -69,7 +69,7 @@ const CatalogGenres = () => {
                     { GenresReleases && GenresReleases.map((item) => 
                         <Link to={`/${item.alias}`} key={item.id} className={style.popularBox}>
                             <div>
-                                <img className={style.img} src={`https://anilibria.wtf/${item.poster.src}`} alt={item.name.english} />
+                                <img className={style.img} src={`https://anilibria.top/${item.poster.src}`} alt={item.name.english} />
                             </div>
                             <div className={style.absolute}>
                                 <div className={style.padding}>

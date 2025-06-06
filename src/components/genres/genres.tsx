@@ -24,7 +24,7 @@ const Genres = () => {
             <div className={style.grid}>
                 {  genres && genres.map((item) => 
                     <Link to={`/genres/${item.id}`} className={style.box} key={item.id}>
-                        <img className={style.img} src={`https://anilibria.wtf/${item.image.preview}`} alt="" />
+                        <img className={style.img} src={`https://anilibria.top/${item.image.preview}`} alt="" />
                         <h3 className={style.text}>{item.name}</h3>
                     </Link>
                 )}
