@@ -54,6 +54,12 @@
     gap: 20px;
 }
 
+.textInfo {
+    max-width: 1040px;
+    margin: 0 auto;
+    color: #e4e4e4;
+}
+
 @media (max-width: 625px) {
     .h3 {
         font-size: 20px;
