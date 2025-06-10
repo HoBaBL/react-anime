@@ -11,6 +11,7 @@ import CatalogPages from './pages/catalog.tsx';
 import CatalogNewPages from './pages/catalogNew.tsx';
 import GenresPages from './pages/genres.tsx';
 import CatalogGenresPages from './pages/catalogGenres.tsx';
+import FavouritesPages from './pages/favouritesPage.tsx';
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
   {
     path: "/genres/:id",
     element: <CatalogGenresPages/>,
+  },
+  {
+    path: "/favourites",
+    element: <FavouritesPages/>,
   },
 ]);
 

@@ -24,6 +24,7 @@ const Catalog:FC<CatalogType> = ({popularAnime, createPopular, hasMore, text}) =
                     dataLength={popularAnime.length}
                     next={createPopular}
                     hasMore={hasMore}
+                    // inverse={true}
                     loader={<h4>Загрузка...</h4>}
                     >
                     { popularAnime && popularAnime.map((item) => 

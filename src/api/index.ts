@@ -16,14 +16,15 @@ export const getPopular = async () => {
 
 //// популярные релизы в каталог
 export const getPopularCatalog = async (page:number) => {
-    const popular: Anime[] = ((await $api.get(`anime/catalog/releases?page=${page}&limit=18&f[types]&f[genres]&f[search]&f[sorting]=RATING_DESC&f[seasons]&f[age_ratings]&f[years][to_year]=2026&f[years][from_year]=1995&f[publish_statuses]&f[production_statuses]`)).data.data)   
+    const popular: Anime[] = ((await $api.get(`anime/catalog/releases?page=${page}&limit=8&f[types]&f[genres]&f[search]&f[sorting]=RATING_DESC&f[seasons]&f[age_ratings]&f[years][to_year]=2026&f[years][from_year]=1995&f[publish_statuses]&f[production_statuses]`)).data.data)   
+    // console.log(popular)
     return popular
 }
 
 
 //// получение новых релизов в каталог
 export const getLastCatalog = async (page:number) => {
-    const last: Anime[] = ((await $api.get(`anime/releases/latest?page=${page}&limit=18`)).data)
+    const last: Anime[] = ((await $api.get(`anime/releases/latest?page=${page}&limit=8`)).data)
     return last
 }
 

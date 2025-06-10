@@ -275,6 +275,42 @@
     height: auto;
 }
 
+.starBtn {
+    padding: 8px 10px;
+    border: solid 1px rgb(153, 153, 153);
+    background-color: transparent;
+    color: rgb(153, 153, 153);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    transition: 0.2s;
+    width: 150px;
+    /* justify-content: center; */
+}
+
+.starBtnActive {
+    padding: 8px 10px;
+    border: solid 1px #d56f1a;
+    background-color: transparent;
+    color: #d56f1a;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    transition: 0.2s;
+    width: 150px;
+    /* justify-content: center; */
+}
+
+.starBtn:hover {
+    color: #d56f1a;
+    border: solid 1px #d56f1a;
+}
 
 @media (max-width: 770px) {
     .flexHeader {

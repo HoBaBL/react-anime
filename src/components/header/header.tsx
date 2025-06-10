@@ -70,7 +70,7 @@ function Header() {
                             <Link to={'/catalog'}><Button className={style.headerMenuHref} type="link">Популярные</Button></Link> 
                             <Link to={'/catalog/new'}><Button className={style.headerMenuHref} type="link">Новое</Button></Link>
                             <Link to={'/catalog/genres'}><Button className={style.headerMenuHref} type="link">Жанры</Button></Link>
-                            <Button className={style.headerMenuHref} type="link">Избранное</Button>
+                            <Link to={'/favourites'}><Button className={style.headerMenuHref} type="link">Избранное</Button></Link>
                         </ConfigProvider>
                         
                     </Flex>
@@ -162,7 +162,7 @@ function Header() {
                                         <Link className={style.drawerLink}  to={'/catalog'}><Button className={style.headerMenuHref} type="link">Популярные</Button></Link> 
                                         <Link className={style.drawerLink} to={'/catalog/new'}><Button className={style.headerMenuHref} type="link">Новое</Button></Link>
                                         <Link className={style.drawerLink} to={'/catalog/genres'}><Button className={style.headerMenuHref} type="link">Жанры</Button></Link>
-                                        <Link className={style.drawerLink} to={'/catalog/genres'}><Button className={style.headerMenuHref} type="link">Избранное</Button></Link>
+                                        <Link className={style.drawerLink} to={'/favourites'}><Button className={style.headerMenuHref} type="link">Избранное</Button></Link>
                                     </div>
 
                             </ConfigProvider>
