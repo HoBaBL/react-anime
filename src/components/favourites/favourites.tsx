@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import style from './favourites.module.css'
 import type { Anime } from '../../types/types'
 import { Link } from 'react-router'
@@ -13,8 +13,8 @@ type lastType = {
 
 
 const Favourites = () => {
-    const [favourites, setFavourites] = useState<Anime[]>(JSON.parse(localStorage.getItem('favourites')!) || [])
-    const [lastEpisodesLocal, setLastEpisidesLocal] = useState<lastType[]>(JSON.parse(localStorage.getItem('last_episodes')!) || [])
+    const favourites: Anime[] = JSON.parse(localStorage.getItem('favourites')!) || []
+    const lastEpisodesLocal:lastType[] = JSON.parse(localStorage.getItem('last_episodes')!) || []
 
     useEffect(() => {
         window.scrollTo(0, 0)
