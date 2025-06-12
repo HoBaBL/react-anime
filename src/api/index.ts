@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { IAnime, Genre, Anime, Account } from "../types/types";
+import type { IAnime, Genre, Anime } from "../types/types";
 import type { EpisodeType } from "../types/typesEpisode";
 import type { FranchisesType } from "../types/typesFranchises";
 
@@ -80,16 +80,4 @@ export const getGenresId = async (id: string ) => {
 export const getSearch = async (query: string ) => {
     const search: Anime[] = ((await $api.get(`/app/search/releases?query=${query}`)).data)
     return search
-}
-
-//// вход в аккаунт через Google
-export const getAccGoogle = async () => {
-    const acc: Account = ((await $api.get(`/accounts/users/auth/social/google/login`)).data)
-    return acc
-}
-
-//// вход через полученный токен 
-export const getAccToken = async (token: string) => {
-    const acc = ((await $api.get(`/accounts/users/auth/social/authenticate?state=${token}`)))
-    return acc
 }

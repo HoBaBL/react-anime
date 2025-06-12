@@ -67,7 +67,7 @@ function Header() {
                                 },
                             }}
                             >
-                            <Link to={'/catalog'}><Button className={style.headerMenuHref} type="link">Популярные</Button></Link> 
+                            <Link to={'/catalog'}><Button className={style.headerMenuHref} type="link">Популярное</Button></Link> 
                             <Link to={'/catalog/new'}><Button className={style.headerMenuHref} type="link">Новое</Button></Link>
                             <Link to={'/catalog/genres'}><Button className={style.headerMenuHref} type="link">Жанры</Button></Link>
                             <Link to={'/favourites'}><Button className={style.headerMenuHref} type="link">Избранное</Button></Link>
@@ -144,7 +144,7 @@ function Header() {
                                                 <Input style={{width:"280px"}} onClick={() => setSearchActiveDrawer(true)} size="large" className={style.inputDrawer} value={query} onChange={(e) => updateQuery(e.target.value)} placeholder="Поиск" prefix={<IoSearch size={20} color='#d56f1a'/>} />
                                             </ConfigProvider>
                                             <div className={searchActiveDrawer && query.length > 0 ? style.searchActiveDrawer : style.searchActiveNoneDrawer} ref={refTask}>
-                                                { query.length > 2 ? 
+                                                { query.length > 2  ? 
                                                     releases.slice(0, 4).map((item) => 
                                                         <Link onClick={() => setSearchActiveDrawer(false)} key={item.id} to={`/${item.alias}`} className={style.flexSearch}>
                                                             <div>
@@ -159,7 +159,7 @@ function Header() {
                                             </div>
                                         </div>
                                         
-                                        <Link className={style.drawerLink}  to={'/catalog'}><Button className={style.headerMenuHref} type="link">Популярные</Button></Link> 
+                                        <Link className={style.drawerLink}  to={'/catalog'}><Button className={style.headerMenuHref} type="link">Популярное</Button></Link> 
                                         <Link className={style.drawerLink} to={'/catalog/new'}><Button className={style.headerMenuHref} type="link">Новое</Button></Link>
                                         <Link className={style.drawerLink} to={'/catalog/genres'}><Button className={style.headerMenuHref} type="link">Жанры</Button></Link>
                                         <Link className={style.drawerLink} to={'/favourites'}><Button className={style.headerMenuHref} type="link">Избранное</Button></Link>

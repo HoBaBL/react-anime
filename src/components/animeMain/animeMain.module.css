@@ -8,7 +8,7 @@
 .img {
     border-radius: 15px;
     max-width: 350px;
-    width: 100%;
+    width: 75%;
 }
 
 .flexHeader {
@@ -312,6 +312,30 @@
     border: solid 1px #d56f1a;
 }
 
+.btnNext {
+    cursor: pointer;
+    font-size: 16px;
+    background-color: rgb(26, 25, 25);
+    padding: 8px 10px;
+    border: solid 1px rgb(153, 153, 153);
+    color: #e4e4e4;
+    border-radius: 5px;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btnNext:hover {
+    background-color: #1f1f1f;
+}
+
+.boxBtnNext {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
 @media (max-width: 770px) {
     .flexHeader {
         flex-direction: column;
@@ -360,6 +384,11 @@
     .imgFranchise {
         width: 80px;
     }
+
+    .btnNext {
+        font-size: 14px;
+        padding: 5px 8px;
+    }
 }
 
 @media (max-width: 550px) {
@@ -389,5 +418,10 @@
 
     .imgFranchise {
         width: 80px;
+    }
+
+    .h1 {
+        font-size: 32px;
+        line-height: 1.1;
     }
 }

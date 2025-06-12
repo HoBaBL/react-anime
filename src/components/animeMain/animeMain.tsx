@@ -12,6 +12,7 @@ import { FaSortAmountDownAlt, FaSortAmountUp } from "react-icons/fa";
 import type { OnProgressProps } from 'react-player/base'
 import { PiStarFill, PiStarBold } from "react-icons/pi";
 import type { Anime } from '../../types/types'
+import { GrNext, GrPrevious } from "react-icons/gr";
 
 
 type lastType = {
@@ -130,6 +131,36 @@ const AnimeMain = () => {
         }
     }
 
+    function nextEpisodes() {
+        const index = release?.episodes.indexOf(episodes!)
+        const episod = release?.episodes[index! + 1]
+        setEpisodes(episod)
+
+        if (episod?.hls_1080 !== null) {
+            setURLVideo(episod!.hls_1080)
+        } else if (episod.hls_1080 === null && episod?.hls_720 !== null) {
+            setURLVideo(episod?.hls_720)
+        } else if (episod?.hls_1080 === null && episod?.hls_720 === null && episod?.hls_480 !== null) {
+            setURLVideo(episod?.hls_480)
+        }
+    }
+
+    function previousEpisodes() {
+        const index = release?.episodes.indexOf(episodes!)
+        if (index !== 0) {
+            const episod = release?.episodes[index! - 1]
+            setEpisodes(episod)
+
+            if (episod?.hls_1080 !== null) {
+                setURLVideo(episod!.hls_1080)
+            } else if (episod.hls_1080 === null && episod?.hls_720 !== null) {
+                setURLVideo(episod?.hls_720)
+            } else if (episod?.hls_1080 === null && episod?.hls_720 === null && episod?.hls_480 !== null) {
+                setURLVideo(episod?.hls_480)
+            }
+        }
+    }
+
     return (
         <div className={style.container}>
             { loading ?
@@ -201,12 +232,18 @@ const AnimeMain = () => {
                                 width={'100%'}
                                 height={'auto'}
                                 controls={true}
+                                playing={true}
+                                pip={true}
                                 url={URLVideo}
                                 onStart={() => seek()}
                                 onProgress={(progress) => {
                                     lastEpisodes(progress)
                                 }}
                             />
+                            <div className={style.boxBtnNext}>
+                                <button onClick={() => previousEpisodes()} className={style.btnNext}><GrPrevious/> Предыдущее</button>
+                                <button onClick={() => nextEpisodes()} className={style.btnNext}>Следующее <GrNext/></button>
+                            </div>
                         </Modal>
                     </ConfigProvider>
                     <div className={style.inputBox}>
@@ -254,8 +291,27 @@ const AnimeMain = () => {
                     </div>
                     <p style={{fontSize:'14px', marginBottom: '30px'}} className={style.textMenuGray}>Просмотрено {lastEpisodesLocal.filter((e) => e.relID === release?.id && e.played > 0.8).length} из {release?.episodes_total}</p>
                     <div className={style.episodesGrid}>
-                        {   
+                        {   query === '' ?
                             release?.episodes.map((item) => 
+                                <div style={{backgroundImage: `url(https://anilibria.top/${item.preview.src})`, backgroundSize: "cover" }} onClick={() => newURL(item)} className={lastEpisodesLocal.find((i) => i.epID === item.id && i.playerSeek > 1080) ? style.previewActive : style.preview} key={item.id}>
+                                    <div className={style.previewAbsolute}>
+                                        <div style={{padding:'10px'}}>
+                                            <p className={style.previewTextMax}>{item.ordinal} эпизод</p>
+                                            <p className={style.previewText}>{item.name}</p>
+                                            
+                                        </div>
+                                    </div>
+                                    {lastEpisodesLocal.find((i) => i.epID === item.id && i.played > 0.85) ? 
+                                        <div>
+                                            <p style={{padding:'10px', color:'#d56f1a', alignItems:'center'}} className={style.previewTextMax}>Просмотрен</p> 
+                                        </div>
+                                        : ''
+                                    }
+                                    
+                                </div>
+                            )
+                            :
+                            release?.episodes.filter((i) => i.sort_order === Number(query) ||  i.name.toLowerCase() === query).map((item) => 
                                 <div style={{backgroundImage: `url(https://anilibria.top/${item.preview.src})`, backgroundSize: "cover" }} onClick={() => newURL(item)} className={lastEpisodesLocal.find((i) => i.epID === item.id && i.playerSeek > 1080) ? style.previewActive : style.preview} key={item.id}>
                                     <div className={style.previewAbsolute}>
                                         <div style={{padding:'10px'}}>
