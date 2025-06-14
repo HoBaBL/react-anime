@@ -5,6 +5,7 @@ import { getPopular, getLast, getRandom } from "../api"
 import InfoHome from "../components/infoHome/infoHome"
 import RandomGenres from "../components/randomGenresHome/randomGenresHome"
 import Footer from "../components/footer/footer"
+import { useEffect } from "react"
 
 function HomePages() {
     const infoArray = [
@@ -21,6 +22,10 @@ function HomePages() {
             alias: "sword-art-online-i"
         }
     ]
+
+    useEffect(() => {
+        document.title = "Anime Home"
+    },[])
 
     return (
         <>

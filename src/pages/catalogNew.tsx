@@ -13,6 +13,7 @@ function CatalogNewPages() {
         useEffect(() => {
             createPopular()
             window.scrollTo(0, 0)
+            document.title = "Новые релизы"
         },[])
     
         const createPopular = async () => {

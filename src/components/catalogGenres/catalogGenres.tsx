@@ -16,6 +16,7 @@ const CatalogGenres = () => {
     const createGenres = async () => {
         const timeoutPopular = await getGenresId(id!)
         setGenres(timeoutPopular)
+        document.title = `${timeoutPopular?.name}`
     }
     
     useEffect(() => {

@@ -55,6 +55,8 @@ const AnimeMain = () => {
         setRelease(timeoutPopular)
         setFranchises(timeoutFranchises)
         setLoading(true)
+        document.title = timeoutPopular.name.main
+
     }
 
     useEffect(() => {

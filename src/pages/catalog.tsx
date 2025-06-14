@@ -8,12 +8,11 @@ import type { Anime } from "../types/types"
 function CatalogPages() {
     const [popularAnime, setPopularAnime] = useState<Anime[]>([]) 
     const [hasMore, setHasMore] = useState(true);
-    // const [page, setPage] = useState(1);
     const page = useRef(1)
-// JSON.parse(sessionStorage.getItem('animeCatalog')!)
         useEffect(() => {
             createPopular()
             window.scrollTo(0, 0)
+            document.title = "Популярные релизы"
         },[])
     
         const createPopular = async () => {
@@ -23,12 +22,10 @@ function CatalogPages() {
                 if (timeoutPopular.length === 0) {
                     setHasMore(false);
                 }
-                // sessionStorage.setItem('animeCatalog', JSON.stringify(popularAnime));
             } else if (popularAnime.length === 0){
                 const timeoutPopular = await getPopularCatalog(page.current)
                 setPopularAnime(timeoutPopular)
             }
-                // setPage(prevPage => prevPage + 1)
                 page.current = page.current + 1
             }
 
