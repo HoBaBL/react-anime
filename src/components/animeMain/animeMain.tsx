@@ -49,6 +49,8 @@ const AnimeMain = () => {
         setIsModalOpen(false);
     };
 
+    console.log(loading)
+
     const createPopular = async () => {
         const timeoutPopular = await getReleasesId(id!)
         const timeoutFranchises = await getFranchises(timeoutPopular.id!)
@@ -62,6 +64,7 @@ const AnimeMain = () => {
     useEffect(() => {
         createPopular()
         window.scrollTo(0, 0)
+        setLoading(false)
     },[id])
 
     function newURL(item: Episode) {
