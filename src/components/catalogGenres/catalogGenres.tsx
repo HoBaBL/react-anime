@@ -65,11 +65,12 @@ const CatalogGenres = () => {
                     dataLength={GenresReleases.length}
                     next={createPopular}
                     hasMore={hasMore}
+                    // inverse={true}
                     loader={<h4>Загрузка...</h4>}
                     >
                     { GenresReleases && GenresReleases.map((item) => 
                         <Link to={`/${item.alias}`} key={item.id} className={style.popularBox}>
-                            <div>
+                            <div className={style.imgBox}>
                                 <img className={style.img} src={`https://anilibria.top/${item.poster.src}`} alt={item.name.english} />
                             </div>
                             <div className={style.absolute}>

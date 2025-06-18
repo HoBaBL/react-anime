@@ -102,3 +102,54 @@
     object-fit: cover;
     border-radius: 10px;
 }
+
+@media (max-width: 1010px) {
+    .popularFlex {
+        grid-template-columns: repeat(1,1fr);
+    }
+}
+
+@media (max-width: 500px) {
+    .h1 {
+        font-size: 24px;
+    }
+
+    .img {
+        width: 140px;
+    }
+
+    .popularFlex {
+        margin-top: 20px;
+        gap: 20px;
+    }
+
+    .imgGenres {
+        width: 80px;
+        height: 100px;
+    }
+}
+
+@media (max-width:420px) {
+    .popularBox {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 15px 0;
+    }
+
+    .imgBox {
+        text-align: center;
+    }
+
+    .img {
+        width: 75%;
+    }
+
+    .absolute {
+        margin-top: 20px;
+    }
+
+    .absoluteText {
+        font-size: 22px;
+    }
+}
