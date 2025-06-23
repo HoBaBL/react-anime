@@ -1,4 +1,3 @@
-import { ConfigProvider, Input } from "antd"
 import { supabase } from "../../api"
 import style from './auth.module.css'
 import { useForm } from "react-hook-form"
@@ -33,7 +32,7 @@ const Register = () => {
             }
         )
         if (error) console.log(error)
-
+        data
         setLoading(true)
     }
 
