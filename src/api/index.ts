@@ -10,7 +10,7 @@ const $api = axios.create({
     baseURL: 'https://anilibria.top/api/v1/'
 })
 
-export const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_ANON_KEY);
+export const supabase = createClient("https://xjwphjgkoukcnlqthfbk.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhqd3Boamdrb3VrY25scXRoZmJrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA2OTk5NTEsImV4cCI6MjA2NjI3NTk1MX0.1_QB6hpuB2fB_3wceXcbDD69B9AT39AF0ooEpIKf09k");
 
 //// получение популярных релизов
 export const getPopular = async () => {
