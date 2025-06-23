@@ -1,0 +1,79 @@
+.container {
+    max-width: 550px;
+    margin: 0 auto;
+    padding-top: 160px;
+}
+
+.input {
+    background-color: #2e2e2e;
+    color: #e4e4e4;
+    border-radius: 10px;
+    width: 100%;
+    padding: 7px 11px;
+    font-size: 16px;
+    border: none;
+    box-sizing: border-box;
+    line-height: 1.5;
+}
+
+.input:focus{
+    outline: solid 1px #d56f1a;
+}
+
+.box {
+    background-color: #000000;
+    padding: 40px;
+    border-radius: 20px;
+    
+}
+
+.formLogin {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+}
+
+.h2 {
+    background: linear-gradient(90deg, rgba(244, 227, 121, 1) 0%, rgba(204, 81, 59, 1) 100%);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 36px;
+    text-transform: uppercase;
+    /* max-width: 240px; */
+    font-family: "Exo 2", sans-serif;
+    margin-top: 0;
+    text-align: center;
+}
+
+.btnLogin {
+    /* background-color: #252525; */
+    background: linear-gradient(90deg, rgba(244, 227, 121, 1) 0%, rgba(204, 81, 59, 1) 100%);
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 10px;
+    color: rgb(22, 22, 22);
+    border: none;
+    cursor: pointer;
+    transition: 0.2s;
+    width: 80%;
+    font-family: "Exo 2", sans-serif;
+    font-weight: 600;
+}
+
+.btnLogin:hover {
+    background-color: #1f1f1f;
+}
+
+.textFotter {
+    color: #e4e4e4;
+    text-align: center;
+}
+
+.link {
+    background-color: transparent;
+    border: none;
+    color: rgb(213, 111, 26);
+    font-size: 16px;
+    cursor: pointer;
+}

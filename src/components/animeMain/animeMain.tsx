@@ -1,17 +1,17 @@
 import style from './animeMain.module.css'
-import { getReleasesId, getFranchises } from '../../api'
+import { getReleasesId, getFranchises, supabase } from '../../api'
 import type { EpisodeType, Episode } from '../../types/typesEpisode'
 import { useEffect, useRef, useState} from 'react'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import { Link } from 'react-router-dom';
-import { Modal, ConfigProvider, Input, Button } from 'antd';
+import { Modal, ConfigProvider, Input, Button} from 'antd';
 import type { FranchisesType } from '../../types/typesFranchises' 
 import { IoSearch } from "react-icons/io5";
 import ReactPlayer from 'react-player'
 import { FaSortAmountDownAlt, FaSortAmountUp } from "react-icons/fa";
 import type { OnProgressProps } from 'react-player/base'
 import { PiStarFill, PiStarBold } from "react-icons/pi";
-import type { Anime } from '../../types/types'
+import type { Genre } from '../../types/types'
 import { GrNext, GrPrevious } from "react-icons/gr";
 
 
@@ -20,6 +20,19 @@ type lastType = {
     relID: number | undefined,
     playerSeek: number,
     played: number
+}
+
+type favourites = {
+    id_title: string,
+    id_user: string,
+    name: string,
+    name_en: string,
+    genres: Genre,
+    description: string,
+    age_rating: string,
+    year: number,
+    alias: string,
+    poster: string
 }
 
 const AnimeMain = () => {
@@ -33,8 +46,10 @@ const AnimeMain = () => {
     const [sortNew, setSortNew] = useState(true)
     const [lastEpisodesLocal, setLastEpisidesLocal] = useState<lastType[]>(JSON.parse(localStorage.getItem('last_episodes')!) || [])
     const player = useRef<ReactPlayer>(null)
-    const [favourites, setFavourites] = useState<Anime[]>(JSON.parse(localStorage.getItem('favourites')!) || [])
+    const [favourites, setFavourites] = useState<favourites[]>([])
     const [loading, setLoading] = useState(false)
+    const [user, setUser] = useState('') /// id user
+    const navigate = useNavigate();
 
 
     const showModal = () => {
@@ -48,8 +63,6 @@ const AnimeMain = () => {
     const handleCancel = () => {
         setIsModalOpen(false);
     };
-
-    console.log(loading)
 
     const createPopular = async () => {
         const timeoutPopular = await getReleasesId(id!)
@@ -123,17 +136,65 @@ const AnimeMain = () => {
         }
     }
 
-    function addFavorites() {
-        const copy = [...favourites]
-        if (!favourites.find(i => i.id === release!.id)) {
-            copy.push(release!)
-            setFavourites(copy)
-            localStorage.setItem('favourites', JSON.stringify(copy))
-        } else {
-            const copyFilter = copy.filter((i) => i.id !== release?.id)
-            setFavourites(copyFilter)
-            localStorage.setItem('favourites', JSON.stringify(copyFilter))
+    async function User() {
+        const { data, error } = await supabase.auth.getSession()
+        setUser(data.session?.user.id!)
+        if (error !== null) {
+            console.log(error)
         }
+        Favourites(data.session?.user.id!)
+    }
+
+    useEffect(() => {
+        User()
+        
+    },[user])
+
+    async function Favourites(user:string) {
+        const { data, error } = await supabase
+            .from('Anime_favorite')
+            .select()
+            .eq('id_user', user)
+        setFavourites(data!)
+        if (error) console.log(error)
+    }
+
+
+    
+    /// добавить в избранное
+    async function addFavorites() {
+        if (user !== undefined) {
+            const { error } = await supabase
+            .from('Anime_favorite')
+            .insert(
+                { 
+                    id_title: release?.id, 
+                    id_user: user,
+                    name: release?.name.main,
+                    name_en: release?.name.english,
+                    genres: release?.genres,
+                    description: release?.description,
+                    age_rating: release?.age_rating.label,
+                    year:release?.year,
+                    alias: release?.alias,
+                    poster:release?.poster.src
+                },
+            ).select()
+            if (error) console.log(error)
+            Favourites(user)
+        } else {
+            navigate("/login")
+        }
+        
+    }
+
+    async function deleteFavorites() {
+        const response = await supabase
+        .from('Anime_favorite')
+        .delete()
+        .eq('id_title', release?.id)
+        if (response) {}
+        Favourites(user)
     }
 
     function nextEpisodes() {
@@ -194,10 +255,10 @@ const AnimeMain = () => {
                                 { release?.episodes_total !== null ? <p className={style.textMenuGray}>Количество серий: <span className={style.textMenu}>{release?.episodes_total}</span></p> : ''}
                                 { release?.average_duration_of_episode !== null ? <p className={style.textMenuGray}>Время серии: <span className={style.textMenu}>{release?.average_duration_of_episode} мин</span></p> : ''} 
                             </div>
-                            {!favourites.find(i => i.id === release!.id) ? 
+                            {!favourites.find(i =>Number(i.id_title) === release!.id) ? 
                                 <button onClick={() => addFavorites()} className={style.starBtn}><PiStarBold size={24}/> В избранное</button>
                                 : 
-                                <button onClick={() => addFavorites()} className={style.starBtnActive}><PiStarFill size={24}/> Добавлено</button>
+                                <button onClick={() => deleteFavorites()} className={style.starBtnActive}><PiStarFill size={24}/> Добавлено</button>
                             }
                         </div>
                     </div>

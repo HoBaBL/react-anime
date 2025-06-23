@@ -2,11 +2,15 @@ import axios from "axios";
 import type { IAnime, Genre, Anime } from "../types/types";
 import type { EpisodeType } from "../types/typesEpisode";
 import type { FranchisesType } from "../types/typesFranchises";
+import { createClient } from "@supabase/supabase-js";
+
 
 // https://anilibria.wtf/api/v1/
 const $api = axios.create({
     baseURL: 'https://anilibria.top/api/v1/'
 })
+
+export const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_ANON_KEY);
 
 //// получение популярных релизов
 export const getPopular = async () => {

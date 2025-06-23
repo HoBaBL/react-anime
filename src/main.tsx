@@ -12,6 +12,8 @@ import CatalogNewPages from './pages/catalogNew.tsx';
 import GenresPages from './pages/genres.tsx';
 import CatalogGenresPages from './pages/catalogGenres.tsx';
 import FavouritesPages from './pages/favouritesPage.tsx';
+import RegisterAuth from './pages/register.tsx';
+import LoginAuth from './pages/login.tsx';
 
 const router = createBrowserRouter([
   {
@@ -41,6 +43,14 @@ const router = createBrowserRouter([
   {
     path: "/favourites",
     element: <FavouritesPages/>,
+  },
+  {
+    path: "/registration",
+    element: <RegisterAuth/>,
+  },
+  {
+    path: "/login",
+    element: <LoginAuth/>,
   },
 ]);
 

@@ -27,6 +27,7 @@ function HomePages() {
         document.title = "Anime Home"
     },[])
 
+
     return (
         <>
             <Header/>
