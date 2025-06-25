@@ -1,5 +1,5 @@
 import style from './animeMain.module.css'
-import { getReleasesId, getFranchises, supabase } from '../../api'
+import { getReleasesId, getFranchises, supabase, getListId } from '../../api'
 import type { EpisodeType, Episode } from '../../types/typesEpisode'
 import { useEffect, useRef, useState} from 'react'
 import { useNavigate, useParams } from 'react-router'
@@ -11,28 +11,22 @@ import ReactPlayer from 'react-player'
 import { FaSortAmountDownAlt, FaSortAmountUp } from "react-icons/fa";
 import type { OnProgressProps } from 'react-player/base'
 import { PiStarFill, PiStarBold } from "react-icons/pi";
-import type { Genre } from '../../types/types'
 import { GrNext, GrPrevious } from "react-icons/gr";
 
 
 type lastType = {
-    epID: string | undefined, 
-    relID: number | undefined,
+    id: `${string}-${string}-${string}-${string}-${string}`, 
+    release_episode_id: string | undefined,
+    id_user: string
     playerSeek: number,
-    played: number
+    played: number,
+    id_release: number | undefined
 }
 
 type favourites = {
+    id: number
     id_title: string,
     id_user: string,
-    name: string,
-    name_en: string,
-    genres: Genre,
-    description: string,
-    age_rating: string,
-    year: number,
-    alias: string,
-    poster: string
 }
 
 const AnimeMain = () => {
@@ -106,31 +100,76 @@ const AnimeMain = () => {
         release?.episodes.reverse()
     }
 
-    function lastEpisodes(progress:OnProgressProps) {
+    useEffect(() => {
+        lastEpisodesAdd()
+    },[user, release])
+
+    async function lastEpisodesAdd() {
+        const { data, error } = await supabase
+            .from('episodes_timecod')
+            .select()
+            .eq('id_user', user)
+            .eq('id_release', release?.id)
+        setLastEpisidesLocal(data!)
+        if (error) console.log(error)
+    }
+
+    async function lastEpisodes(progress:OnProgressProps) {
+        if (user !== '') {
+            if (!lastEpisodesLocal.find(i => i.release_episode_id === episodes?.id)) {
+                const { error } = await supabase
+                .from('episodes_timecod')
+                .insert({ 
+                    id: crypto.randomUUID(),
+                    release_episode_id: episodes?.id, 
+                    id_user: user,
+                    playerSeek:0,
+                    played: 0,
+                    id_release: release?.id
+                })
+            if (error) console.log(error)
+            
+            } else {
+                const copyEpisodes = lastEpisodesLocal.find(i => i.release_episode_id === episodes?.id)
+                if (copyEpisodes != undefined && progress!.playedSeconds !== 0) {
+                    const { error } = await supabase
+                        .from('episodes_timecod')
+                        .update({ playerSeek: Math.trunc(progress!.playedSeconds), played: progress!.played})
+                        .eq('id_user', user)
+                        .eq('release_episode_id', copyEpisodes.release_episode_id)
+                    if (error) console.log(error)
+                }
+            }
+            lastEpisodesAdd()
+        } 
         const copy = [...lastEpisodesLocal]
-        if (!lastEpisodesLocal.find(i => i.epID === episodes?.id)) {
+        if (!lastEpisodesLocal.find(i => i.release_episode_id === episodes?.id)) {
             
             const lastEpisodes = {
-                epID: episodes?.id, 
-                relID: release?.id,
-                playerSeek: 0,
-                played: 0
+                id: crypto.randomUUID(),
+                release_episode_id: episodes?.id, 
+                id_user: '0',
+                playerSeek:0,
+                played: 0,
+                id_release: release?.id
             }
-            copy.push(lastEpisodes!)
+            copy.push(lastEpisodes)
             setLastEpisidesLocal(copy)
             localStorage.setItem('last_episodes', JSON.stringify(copy))
         } else {
-            const copyEpisodes = lastEpisodesLocal.find(i => i.epID === episodes?.id)
+            const copyEpisodes = lastEpisodesLocal.find(i => i.release_episode_id === episodes?.id)
             if (copyEpisodes != undefined && progress.playedSeconds !== 0) {
                 copyEpisodes.playerSeek = Math.trunc(progress.playedSeconds)
                 copyEpisodes.played = progress.played
             }
             localStorage.setItem('last_episodes', JSON.stringify(copy))
         }
+    
+        
     }
 
     function seek() {
-        const copy = lastEpisodesLocal.find(i => i.epID === episodes?.id)
+        const copy = lastEpisodesLocal.find(i => i.release_episode_id === episodes?.id)
         if (player.current !== null && copy != undefined) {
             player.current.seekTo(copy.playerSeek)
         }
@@ -152,32 +191,30 @@ const AnimeMain = () => {
 
     async function Favourites(user:string) {
         const { data, error } = await supabase
-            .from('Anime_favorite')
+            .from('anime_favorites')
             .select()
             .eq('id_user', user)
         setFavourites(data!)
         if (error) console.log(error)
     }
 
+    useEffect(() => {
+        const array = [2637,9433,6837]
+        getListId(array)
+    },[])
+    
 
     
     /// добавить в избранное
     async function addFavorites() {
         if (user !== undefined) {
             const { error } = await supabase
-            .from('Anime_favorite')
+            .from('anime_favorites')
             .insert(
                 { 
+                    id: crypto.randomUUID(),
                     id_title: release?.id, 
                     id_user: user,
-                    name: release?.name.main,
-                    name_en: release?.name.english,
-                    genres: release?.genres,
-                    description: release?.description,
-                    age_rating: release?.age_rating.label,
-                    year:release?.year,
-                    alias: release?.alias,
-                    poster:release?.poster.src
                 },
             ).select()
             if (error) console.log(error)
@@ -190,9 +227,10 @@ const AnimeMain = () => {
 
     async function deleteFavorites() {
         const response = await supabase
-        .from('Anime_favorite')
+        .from('anime_favorites')
         .delete()
         .eq('id_title', release?.id)
+        .eq('id_user', user)
         if (response) {}
         Favourites(user)
     }
@@ -301,6 +339,7 @@ const AnimeMain = () => {
                                 playing={true}
                                 pip={true}
                                 url={URLVideo}
+                                progressInterval={5000}
                                 onStart={() => seek()}
                                 onProgress={(progress) => {
                                     lastEpisodes(progress)
@@ -327,7 +366,7 @@ const AnimeMain = () => {
                                 },
                             }}
                             >
-                            <Input style={{width:"100%"}} size="large" className={style.input} value={query} onChange={(e) => updateQuery(e.target.value)} placeholder="Введите номер или название эпизода..." prefix={<IoSearch size={20} color='#d56f1a'/>} />
+                            <Input style={{width:"100%"}} size="large" className={style.input} value={query} onChange={(e) => updateQuery(e.target.value)} placeholder="Введите номер эпизода..." prefix={<IoSearch size={20} color='#d56f1a'/>} />
                         </ConfigProvider>
                         <ConfigProvider
                             theme={{
@@ -355,11 +394,11 @@ const AnimeMain = () => {
                             
                         </ConfigProvider>
                     </div>
-                    <p style={{fontSize:'14px', marginBottom: '30px'}} className={style.textMenuGray}>Просмотрено {lastEpisodesLocal.filter((e) => e.relID === release?.id && e.played > 0.8).length} из {release?.episodes_total}</p>
+                    <p style={{fontSize:'14px', marginBottom: '30px'}} className={style.textMenuGray}>Просмотрено {lastEpisodesLocal.filter((e) => e.played > 0.8).length} из {release?.episodes_total}</p>
                     <div className={style.episodesGrid}>
                         {   query === '' ?
                             release?.episodes.map((item) => 
-                                <div style={{backgroundImage: `url(https://anilibria.top/${item.preview.src})`, backgroundSize: "cover" }} onClick={() => newURL(item)} className={lastEpisodesLocal.find((i) => i.epID === item.id && i.playerSeek > 1080) ? style.previewActive : style.preview} key={item.id}>
+                                <div style={{backgroundImage: `url(https://anilibria.top/${item.preview.src})`, backgroundSize: "cover" }} onClick={() => newURL(item)} className={lastEpisodesLocal.find((i) => i.release_episode_id === item.id && i.playerSeek > 1080) ? style.previewActive : style.preview} key={item.id}>
                                     <div className={style.previewAbsolute}>
                                         <div style={{padding:'10px'}}>
                                             <p className={style.previewTextMax}>{item.ordinal} эпизод</p>
@@ -367,7 +406,7 @@ const AnimeMain = () => {
                                             
                                         </div>
                                     </div>
-                                    {lastEpisodesLocal.find((i) => i.epID === item.id && i.played > 0.85) ? 
+                                    {lastEpisodesLocal.find((i) => i.release_episode_id === item.id && i.played > 0.85) ? 
                                         <div>
                                             <p style={{padding:'10px', color:'#d56f1a', alignItems:'center'}} className={style.previewTextMax}>Просмотрен</p> 
                                         </div>
@@ -377,8 +416,8 @@ const AnimeMain = () => {
                                 </div>
                             )
                             :
-                            release?.episodes.filter((i) => i.sort_order === Number(query) ||  i.name.toLowerCase() === query).map((item) => 
-                                <div style={{backgroundImage: `url(https://anilibria.top/${item.preview.src})`, backgroundSize: "cover" }} onClick={() => newURL(item)} className={lastEpisodesLocal.find((i) => i.epID === item.id && i.playerSeek > 1080) ? style.previewActive : style.preview} key={item.id}>
+                            release?.episodes.filter((i) => i.sort_order === Number(query)).map((item) => 
+                                <div style={{backgroundImage: `url(https://anilibria.top/${item.preview.src})`, backgroundSize: "cover" }} onClick={() => newURL(item)} className={lastEpisodesLocal.find((i) => i.release_episode_id === item.id && i.playerSeek > 1080) ? style.previewActive : style.preview} key={item.id}>
                                     <div className={style.previewAbsolute}>
                                         <div style={{padding:'10px'}}>
                                             <p className={style.previewTextMax}>{item.ordinal} эпизод</p>
@@ -386,7 +425,7 @@ const AnimeMain = () => {
                                             
                                         </div>
                                     </div>
-                                    {lastEpisodesLocal.find((i) => i.epID === item.id && i.played > 0.85) ? 
+                                    {lastEpisodesLocal.find((i) => i.release_episode_id === item.id && i.played > 0.85) ? 
                                         <div>
                                             <p style={{padding:'10px', color:'#d56f1a', alignItems:'center'}} className={style.previewTextMax}>Просмотрен</p> 
                                         </div>

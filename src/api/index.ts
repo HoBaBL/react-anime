@@ -7,7 +7,7 @@ import { createClient } from "@supabase/supabase-js";
 
 // https://anilibria.wtf/api/v1/
 const $api = axios.create({
-    baseURL: 'https://anilibria.wtf/api/v1/'
+    baseURL: 'https://anilibria.top/api/v1/'
 })
 
 export const supabase = createClient("https://xjwphjgkoukcnlqthfbk.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhqd3Boamdrb3VrY25scXRoZmJrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA2OTk5NTEsImV4cCI6MjA2NjI3NTk1MX0.1_QB6hpuB2fB_3wceXcbDD69B9AT39AF0ooEpIKf09k");
@@ -28,8 +28,14 @@ export const getPopularCatalog = async (page:number) => {
 
 //// получение новых релизов в каталог
 export const getLastCatalog = async (page:number) => {
-    const last: Anime[] = ((await $api.get(`anime/releases/latest?page=${page}&limit=8`)).data)
+    const last: Anime[] = ((await $api.get(`anime/catalog/releases?page=${page}&limit=8&f[types]&f[genres]&f[search]&f[sorting]=FRESH_AT_DESC&f[seasons]&f[age_ratings]&f[years][to_year]=2026&f[years][from_year]=1995&f[publish_statuses]&f[production_statuses]`)).data.data)
     return last
+}
+
+//// получение данных по списку релизов
+export const getListId = async (array:number[]) => {
+    const list: Anime[] = ((await $api.get(`anime/releases/list?ids=${array}&page=1&limit=50`)).data.data)
+    return list
 }
 
 //// получение последних релизов

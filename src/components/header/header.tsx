@@ -1,12 +1,17 @@
 import style from './header.module.css'
-import { Button, Flex, ConfigProvider,Input, Drawer } from 'antd';
+import { Button, Flex, ConfigProvider,Input, Drawer, type MenuProps } from 'antd';
 import { FaRegUser } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
 import { Link } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
-import { getSearch } from '../../api';
+import { getSearch, supabase } from '../../api';
 import type { Anime } from '../../types/types';
 import { RxHamburgerMenu, RxCross2 } from "react-icons/rx";
+import { Dropdown } from 'antd';
+import { IoIosStar } from "react-icons/io";
+import { FaListUl, FaRegClock } from "react-icons/fa";
+import { IoExitOutline } from "react-icons/io5";
+import { FaUserAstronaut } from "react-icons/fa6";
 
 function Header() {
     const [query, updateQuery] = useState('');
@@ -15,10 +20,29 @@ function Header() {
     const [searchActive, setSearchActive] = useState(false)
     const [searchActiveDrawer, setSearchActiveDrawer] = useState(false)
     const [burger, setBurger] = useState(false)
+    const [user, setUser] = useState('')
 
     const createPopular = async () => {
         const timeoutPopular = await getSearch(query)
         setReleases(timeoutPopular)
+    }
+
+    useEffect(() => {
+        User()
+        window.scrollTo(0, 0)
+    },[])
+
+    async function User() {
+        const { data: { user } } = await supabase.auth.getUser()
+        if (user) {
+            setUser(user.user_metadata.first_name)
+        }
+    }
+
+    async function exitUser() {
+        const { error } = await supabase.auth.signOut()
+        if (error) console.log(error)
+        setUser('')
     }
 
     useEffect(() => {
@@ -47,6 +71,47 @@ function Header() {
         setBurger(false);
     };
 
+    const items: MenuProps['items'] = [
+        {
+            label: (
+            <div className={style.headerMenuDropdownText}><div style={{width:"20px", height:"100%", display:'flex', alignItems:"center"}}><FaUserAstronaut size={18}/></div> {user}</div>
+            ),
+            key: '0',
+        },
+        {
+            type: 'divider',
+        },
+        {
+            label: (
+            <Link to={'/favourites'}><Button className={style.headerMenuDropdown} type="link"><div style={{width:"20px", height:"100%", display:'flex', alignItems:"center"}}><IoIosStar size={18}/></div> Избранное</Button></Link>
+            ),
+            key: '1',
+        },
+        {
+            label: (
+            <Link to={'/favourites'}><Button className={style.headerMenuDropdown} type="link"><div style={{width:"20px", height:"100%", display:'flex', alignItems:"center"}}><FaListUl size={18}/></div> Просмотрено</Button></Link>
+            ),
+            key: '2',
+        },
+        {
+            label: (
+            <Link to={'/favourites'}><Button className={style.headerMenuDropdown} type="link"><div style={{width:"20px", height:"100%", display:'flex', alignItems:"center"}}><FaRegClock size={18}/></div> История просмотра</Button></Link>
+            ),
+            key: '4',
+        },
+        {
+            type: 'divider',
+        },
+        {
+            label: (
+                <a onClick={() => exitUser()}>
+                    <Button className={style.headerMenuDropdown} type="link"><div style={{width:"20px", height:"100%", display:'flex', alignItems:"center"}}><IoExitOutline size={22}/></div> Выход</Button>
+                </a>
+            ),
+            key: '3',
+        }
+    ];
+
     return (
         <header className={style.header}>
             <div className={style.container}>
@@ -70,7 +135,6 @@ function Header() {
                             <Link to={'/catalog'}><Button className={style.headerMenuHref} type="link">Популярное</Button></Link> 
                             <Link to={'/catalog/new'}><Button className={style.headerMenuHref} type="link">Новое</Button></Link>
                             <Link to={'/catalog/genres'}><Button className={style.headerMenuHref} type="link">Жанры</Button></Link>
-                            <Link to={'/favourites'}><Button className={style.headerMenuHref} type="link">Избранное</Button></Link>
                         </ConfigProvider>
                         
                     </Flex>
@@ -92,7 +156,31 @@ function Header() {
                             >
                             <Input style={{width:"280px"}} onClick={() => setSearchActive(true)} size="large" className={style.input} value={query} onChange={(e) => updateQuery(e.target.value)} placeholder="Поиск" prefix={<IoSearch size={20} color='#d56f1a'/>} />
                         </ConfigProvider>
-                        <Button className={style.headerMenuHrefAcc} type="link"><FaRegUser size={22} color='#d56f1a'/></Button>
+                        <ConfigProvider
+                            theme={{
+                                token: {
+                                   colorBgElevated:"#0c0c0c",
+                                   controlItemBgHover: "#1f1f1f"
+                                },
+                                components: {
+                                Button: {
+                                    colorLink: '#e4e4e4',
+                                    colorLinkHover: '#e4e4e4',
+                                    colorLinkActive: '#e4e4e4'
+                                },
+                                
+                                },
+                            }}
+                            >
+                            {!user ?
+                               <Link to={'/login'}><Button className={style.headerMenuHrefAcc} type="link"><FaRegUser size={22} color='#d56f1a'/></Button></Link> 
+                               :
+                                <Dropdown  placement="bottomRight" overlayClassName={style.dropdownStyle} menu={{ items }} trigger={['click']}>
+                                    <Button className={style.headerMenuHrefAcc} type="link"><FaRegUser size={22} color='#d56f1a'/></Button>
+                                </Dropdown>
+                            }
+                            
+                        </ConfigProvider>
                         { burger ? <Button onClick={() => setBurger(false)} className={style.headerMenuBurger} type="link"><RxCross2 color='#d56f1a' size={28}/></Button> : 
                             <Button onClick={() => setBurger(true)} className={style.headerMenuBurger} type="link"><RxHamburgerMenu color='#d56f1a' size={28}/></Button>
                         }
@@ -125,6 +213,8 @@ function Header() {
                                 }}
                                 >
                                     <div className={style.flexColumn}>
+                                        <div style={{color:'#e4e4e4'}} className={style.headerMenuHref}>{user}</div>
+                                        <div></div>
                                         <div>
                                             <ConfigProvider
                                             theme={{
@@ -158,11 +248,16 @@ function Header() {
                                                 
                                             </div>
                                         </div>
-                                        
+                                        <div></div>
                                         <Link className={style.drawerLink}  to={'/catalog'}><Button className={style.headerMenuHref} type="link">Популярное</Button></Link> 
                                         <Link className={style.drawerLink} to={'/catalog/new'}><Button className={style.headerMenuHref} type="link">Новое</Button></Link>
                                         <Link className={style.drawerLink} to={'/catalog/genres'}><Button className={style.headerMenuHref} type="link">Жанры</Button></Link>
+                                        <div></div>
                                         <Link className={style.drawerLink} to={'/favourites'}><Button className={style.headerMenuHref} type="link">Избранное</Button></Link>
+                                        <Link className={style.drawerLink} to={'/favourites'}><Button className={style.headerMenuHref} type="link">Просмотрено</Button></Link>
+                                        <Link className={style.drawerLink} to={'/favourites'}><Button className={style.headerMenuHref} type="link">История просмотра</Button></Link>
+                                        <div></div>
+                                        <div><Button className={style.headerMenuHref} type="link">Выход</Button></div>
                                     </div>
 
                             </ConfigProvider>

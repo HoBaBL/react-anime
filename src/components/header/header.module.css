@@ -25,6 +25,15 @@
     padding: 0;
 }
 
+.headerMenuDropdown {
+    font-weight: 500;
+    font-size: 16px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .headerMenuHrefAcc {
     font-weight: 500;
     font-size: 16px;
@@ -130,6 +139,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.headerMenuDropdownText {
+    font-weight: 500;
+    font-size: 16px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #e4e4e4;
 }
 
 @media (max-width: 900px) {
