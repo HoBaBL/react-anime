@@ -255,7 +255,7 @@ const AnimeMain = () => {
                                 { release?.episodes_total !== null ? <p className={style.textMenuGray}>Количество серий: <span className={style.textMenu}>{release?.episodes_total}</span></p> : ''}
                                 { release?.average_duration_of_episode !== null ? <p className={style.textMenuGray}>Время серии: <span className={style.textMenu}>{release?.average_duration_of_episode} мин</span></p> : ''} 
                             </div>
-                            {!favourites.find(i =>Number(i.id_title) === release!.id) ? 
+                            {favourites && !favourites.find(i =>Number(i.id_title) === release!.id) ? 
                                 <button onClick={() => addFavorites()} className={style.starBtn}><PiStarBold size={24}/> В избранное</button>
                                 : 
                                 <button onClick={() => deleteFavorites()} className={style.starBtnActive}><PiStarFill size={24}/> Добавлено</button>
