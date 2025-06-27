@@ -254,6 +254,7 @@
 
 .modalModal {
     width: 45%;
+    min-width: 354px;
 }
 
 .input {
