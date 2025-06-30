@@ -316,7 +316,7 @@ const AnimeMain = () => {
 
     return (
         <div className={style.container}>
-            { !loading ?
+            { loading ?
                 <>
                     <div className={style.flexHeader}>
                         <img className={style.img} src={`https://anilibria.top/${release?.poster.src}`} alt="" />
