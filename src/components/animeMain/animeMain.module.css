@@ -3,6 +3,7 @@
     margin: 0 auto;
     padding: 0 20px;
     padding-top: 100px;
+    min-height: 80vh;
 }
 
 .img {
@@ -14,6 +15,7 @@
 .flexHeader {
     display: flex;
     gap: 50px;
+    width: 100%;
 }
 
 .h1 {
@@ -335,6 +337,11 @@
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
+}
+
+
+.h1Skeleton {
+    width: 40px;
 }
 
 @media (max-width: 770px) {

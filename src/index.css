@@ -21,3 +21,7 @@ body {
 a {
     text-decoration: none;
 }
+
+:where(.css-dev-only-do-not-override-1ljpnsk).ant-skeleton.ant-skeleton-element  {
+    width: 100%;
+}

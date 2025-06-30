@@ -1,21 +1,27 @@
 import { useEffect, useState } from 'react'
 import style from './favourites.module.css'
-import type { Anime } from '../../types/types'
+import type { Genre } from '../../types/types'
 import { Link, useNavigate } from 'react-router'
-import { getListId, supabase } from '../../api'
+import { supabase } from '../../api'
 
-
-type lastType = {
-    epID: string | undefined, 
-    relID: number | undefined,
-    playerSeek: number,
-    played: number
+type animeAPI = {
+    id: string,
+    id_user: string,
+    id_title: string,
+    time: string,
+    poster: string,
+    name: string,
+    name_en: string,
+    genres: Genre[],
+    year: string,
+    age_rating: string,
+    description: string,
+    alias: string
 }
 
 
 const Favourites = () => {
-    const [favourites, setFavourites] = useState<Anime[]>([])
-    const lastEpisodesLocal:lastType[] = JSON.parse(localStorage.getItem('last_episodes')!) || []
+    const [favourites, setFavourites] = useState< animeAPI[]>([])
     const navigate = useNavigate();
 
     async function User() {
@@ -32,12 +38,10 @@ const Favourites = () => {
     async function Favourites(user:string) {
         const { data, error } = await supabase
             .from('anime_favorites')
-            .select('id_title')
+            .select()
             .eq('id_user', user)
-        const arrayID = data!.map((i) => i.id_title)
         if (error) console.log(error)
-        const timeoutListId = await getListId(arrayID)
-        setFavourites(timeoutListId)
+        setFavourites(data!.sort((a, b) => Date.parse(b.time) - Date.parse(a.time)))
     }
 
     useEffect(() => {
@@ -50,18 +54,17 @@ const Favourites = () => {
             <h1 className={style.h1}>Избранное</h1>
             { favourites.length > 0 ?
                 <div className={style.popularFlex}>
-                    { favourites && favourites.reverse().map((item) => 
+                    { favourites && favourites.map((item) => 
                         <Link to={`/${item.alias}`} key={item.id} className={style.popularBox}>
                             <div className={style.imgBox}>
-                                <img className={style.img} src={`https://anilibria.top/${item.poster.src}`} alt={item.name.english} />
+                                <img className={style.img} src={`https://anilibria.top/${item.poster}`} alt={item.name_en} />
                             </div>
                             <div className={style.absolute}>
                                 <div className={style.padding}>
-                                    <h3 className={style.absoluteText}>{item.name.main}</h3>
-                                    <p className={style.genres}>{item.name.english}</p>
-                                    <p style={{fontSize:'14px'}} className={style.series}>Просмотрено {lastEpisodesLocal.filter((e) => e.relID === item?.id && e.played > 0.8).length} из {item?.episodes_total}</p>
+                                    <h3 className={style.absoluteText}>{item.name}</h3>
+                                    <p className={style.genres}>{item.name_en}</p>
                                     {item.genres !== undefined ? <p className={style.genres}>{item.genres.slice(0,3).map((i) => i.name).join(' • ')}</p> : ''} 
-                                    <p className={style.genres}>{item.year} • {item.age_rating.label}</p>
+                                    <p className={style.genres}>{item.year} • {item.age_rating}</p>
                                     <p className={style.series}>{item.description}</p>
                                 </div>
                             </div>

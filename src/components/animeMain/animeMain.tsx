@@ -4,7 +4,7 @@ import type { EpisodeType, Episode } from '../../types/typesEpisode'
 import { useEffect, useRef, useState} from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { Link } from 'react-router-dom';
-import { Modal, ConfigProvider, Input, Button} from 'antd';
+import { Modal, ConfigProvider, Input, Button, Skeleton } from 'antd';
 import type { FranchisesType } from '../../types/typesFranchises' 
 import { IoSearch } from "react-icons/io5";
 import ReactPlayer from 'react-player'
@@ -27,6 +27,7 @@ type favourites = {
     id: number
     id_title: string,
     id_user: string,
+    time: string
 }
 
 const AnimeMain = () => {
@@ -215,6 +216,15 @@ const AnimeMain = () => {
                     id: crypto.randomUUID(),
                     id_title: release?.id, 
                     id_user: user,
+                    time: new Date(),
+                    poster: release?.poster.src,
+                    name: release?.name.main,
+                    name_en: release?.name.english,
+                    genres: release?.genres,
+                    year: release?.year,
+                    age_rating: release?.age_rating.label,
+                    description: release?.description,
+                    alias: release?.alias
                 },
             ).select()
             if (error) console.log(error)
@@ -237,37 +247,76 @@ const AnimeMain = () => {
 
     function nextEpisodes() {
         const index = release?.episodes.indexOf(episodes!)
-        const episod = release?.episodes[index! + 1]
-        setEpisodes(episod)
+        let episod = release?.episodes[index!]
+        if (sortNew) {
+            if (index! + 1 !== release?.episodes.length) {
+                episod = release?.episodes[index! + 1]
+                setEpisodes(episod)
 
-        if (episod?.hls_1080 !== null) {
-            setURLVideo(episod!.hls_1080)
-        } else if (episod.hls_1080 === null && episod?.hls_720 !== null) {
-            setURLVideo(episod?.hls_720)
-        } else if (episod?.hls_1080 === null && episod?.hls_720 === null && episod?.hls_480 !== null) {
-            setURLVideo(episod?.hls_480)
+                if (episod?.hls_1080 !== null) {
+                    setURLVideo(episod!.hls_1080)
+                } else if (episod.hls_1080 === null && episod?.hls_720 !== null) {
+                    setURLVideo(episod?.hls_720)
+                } else if (episod?.hls_1080 === null && episod?.hls_720 === null && episod?.hls_480 !== null) {
+                    setURLVideo(episod?.hls_480)
+                }
+            }
+
+        } else {
+            if (index !== 0) {
+                episod = release?.episodes[index! - 1]
+                setEpisodes(episod)
+
+                
+                if (episod?.hls_1080 !== null) {
+                    setURLVideo(episod!.hls_1080)
+                } else if (episod.hls_1080 === null && episod?.hls_720 !== null) {
+                    setURLVideo(episod?.hls_720)
+                } else if (episod?.hls_1080 === null && episod?.hls_720 === null && episod?.hls_480 !== null) {
+                    setURLVideo(episod?.hls_480)
+                }
+            }
         }
+        
     }
 
     function previousEpisodes() {
         const index = release?.episodes.indexOf(episodes!)
-        if (index !== 0) {
-            const episod = release?.episodes[index! - 1]
-            setEpisodes(episod)
+        let episod = release?.episodes[index!]
+        if (!sortNew) {
+            if (index! + 1 !== release?.episodes.length) {
+                episod = release?.episodes[index! + 1]
+                setEpisodes(episod)
 
-            if (episod?.hls_1080 !== null) {
-                setURLVideo(episod!.hls_1080)
-            } else if (episod.hls_1080 === null && episod?.hls_720 !== null) {
-                setURLVideo(episod?.hls_720)
-            } else if (episod?.hls_1080 === null && episod?.hls_720 === null && episod?.hls_480 !== null) {
-                setURLVideo(episod?.hls_480)
+                if (episod?.hls_1080 !== null) {
+                    setURLVideo(episod!.hls_1080)
+                } else if (episod.hls_1080 === null && episod?.hls_720 !== null) {
+                    setURLVideo(episod?.hls_720)
+                } else if (episod?.hls_1080 === null && episod?.hls_720 === null && episod?.hls_480 !== null) {
+                    setURLVideo(episod?.hls_480)
+                }
+            }
+
+        } else {
+            if (index !== 0) {
+                episod = release?.episodes[index! - 1]
+                setEpisodes(episod)
+
+                
+                if (episod?.hls_1080 !== null) {
+                    setURLVideo(episod!.hls_1080)
+                } else if (episod.hls_1080 === null && episod?.hls_720 !== null) {
+                    setURLVideo(episod?.hls_720)
+                } else if (episod?.hls_1080 === null && episod?.hls_720 === null && episod?.hls_480 !== null) {
+                    setURLVideo(episod?.hls_480)
+                }
             }
         }
     }
 
     return (
         <div className={style.container}>
-            { loading ?
+            { !loading ?
                 <>
                     <div className={style.flexHeader}>
                         <img className={style.img} src={`https://anilibria.top/${release?.poster.src}`} alt="" />
@@ -473,7 +522,41 @@ const AnimeMain = () => {
                     : ""
                     }
                 </>
-                : <p>Загрузка</p>
+                : 
+                <div>
+                    <ConfigProvider
+                        theme={{
+                            components: {
+                            Skeleton: {
+                                gradientFromColor: "rgba(0, 0, 0, 0.36)"
+                            },
+                            },
+                        }}
+                        >
+                            <div className={style.flexHeader}>
+                                <Skeleton.Image className={style.img} style={{ width: "100%", height: "500px", borderRadius: "15px"}} active={true}/>
+                                <div style={{width:"100%"}}>
+                                    <Skeleton.Input size='default' block={true} className={style.h1Skeleton} style={{width: '100%', marginTop:"30px", height: "40px"}} active={true}/>
+                                    <Skeleton.Input size='default' block={true} className={style.text} style={{width: '60%', marginTop:"25px", height: "30px"}} active={true}/>
+                                    <Skeleton.Input size='default' block={true} className={style.text} style={{width: '50%', marginTop:"20px", height: "30px"}} active={true}/>
+                                    <Skeleton.Input size='default' block={true} className={style.text} style={{width: '50%', marginTop:"20px", height: "30px"}} active={true}/>
+                                    <Skeleton.Input size='default' block={true} className={style.text} style={{width: '50%', marginTop:"20px", height: "30px"}} active={true}/>
+                                    <Skeleton.Input size='default' block={true} className={style.text} style={{width: '50%', marginTop:"20px", height: "30px"}} active={true}/>
+                                    <Skeleton.Input size='default' block={true} className={style.text} style={{width: '20%', marginTop:"20px", height: "50px"}} active={true}/>
+                                </div>
+
+                            </div>
+                            <div style={{width:"100%", marginTop: '30px'}}>
+                                <Skeleton.Input size='default' block={true} className={style.text} style={{width: '100%', marginTop:"20px", height: "25px"}} active={true}/>
+                                <Skeleton.Input size='default' block={true} className={style.text} style={{width: '100%', marginTop:"20px", height: "25px"}} active={true}/>
+                                <Skeleton.Input size='default' block={true} className={style.text} style={{width: '100%', marginTop:"20px", height: "25px"}} active={true}/>
+                                <Skeleton.Input size='default' block={true} className={style.text} style={{width: '100%', marginTop:"20px", height: "25px"}} active={true}/>
+                            </div>
+                            <Skeleton.Input size='default' block={true} className={style.text} style={{width: '20%', marginTop:"20px", height: "50px"}} active={true}/>
+                    </ConfigProvider>
+
+                </div>
+                    
             }
         </div>
     )

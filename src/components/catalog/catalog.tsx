@@ -12,6 +12,10 @@ type CatalogType = {
 }
 
 const Catalog:FC<CatalogType> = ({popularAnime, createPopular, hasMore, text}) => {
+
+    const skeleton = <div className={style.popularFlex}><h4>Загрузка...</h4></div>
+        
+    
     
 
     return (
@@ -25,7 +29,7 @@ const Catalog:FC<CatalogType> = ({popularAnime, createPopular, hasMore, text}) =
                     next={createPopular}
                     hasMore={hasMore}
                     // inverse={true}
-                    loader={<h4>Загрузка...</h4>}
+                    loader={skeleton}
                     >
                     { popularAnime && popularAnime.map((item) => 
                         <Link to={`/${item.alias}`} key={item.id} className={style.popularBox}>
