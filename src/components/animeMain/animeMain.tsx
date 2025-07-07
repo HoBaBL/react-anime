@@ -101,48 +101,48 @@ const AnimeMain = () => {
         release?.episodes.reverse()
     }
 
-    useEffect(() => {
-        lastEpisodesAdd()
-    },[user, release])
+    // useEffect(() => {
+    //     lastEpisodesAdd()
+    // },[user, release])
 
-    async function lastEpisodesAdd() {
-        const { data, error } = await supabase
-            .from('episodes_timecod')
-            .select()
-            .eq('id_user', user)
-            .eq('id_release', release?.id)
-        setLastEpisidesLocal(data!)
-        if (error) console.log(error)
-    }
+    // async function lastEpisodesAdd() {
+    //     const { data, error } = await supabase
+    //         .from('episodes_timecod')
+    //         .select()
+    //         .eq('id_user', user)
+    //         .eq('id_release', release?.id)
+    //     setLastEpisidesLocal(data!)
+    //     if (error) console.log(error)
+    // }
 
     async function lastEpisodes(progress:OnProgressProps) {
-        if (user !== '') {
-            if (!lastEpisodesLocal.find(i => i.release_episode_id === episodes?.id)) {
-                const { error } = await supabase
-                .from('episodes_timecod')
-                .insert({ 
-                    id: crypto.randomUUID(),
-                    release_episode_id: episodes?.id, 
-                    id_user: user,
-                    playerSeek:0,
-                    played: 0,
-                    id_release: release?.id
-                })
-            if (error) console.log(error)
+        // if (user !== '') {
+        //     // if (!lastEpisodesLocal.find(i => i.release_episode_id === episodes?.id)) {
+        //     //     const { error } = await supabase
+        //     //     .from('episodes_timecod')
+        //     //     .insert({ 
+        //     //         id: crypto.randomUUID(),
+        //     //         release_episode_id: episodes?.id, 
+        //     //         id_user: user,
+        //     //         playerSeek:0,
+        //     //         played: 0,
+        //     //         id_release: release?.id
+        //     //     })
+        //     // if (error) console.log(error)
             
-            } else {
-                const copyEpisodes = lastEpisodesLocal.find(i => i.release_episode_id === episodes?.id)
-                if (copyEpisodes != undefined && progress!.playedSeconds !== 0) {
-                    const { error } = await supabase
-                        .from('episodes_timecod')
-                        .update({ playerSeek: Math.trunc(progress!.playedSeconds), played: progress!.played})
-                        .eq('id_user', user)
-                        .eq('release_episode_id', copyEpisodes.release_episode_id)
-                    if (error) console.log(error)
-                }
-            }
-            lastEpisodesAdd()
-        } 
+        //     // } else {
+        //         const copyEpisodes = lastEpisodesLocal.find(i => i.release_episode_id === episodes?.id)
+        //         if (copyEpisodes != undefined && progress!.playedSeconds !== 0) {
+        //             const { error } = await supabase
+        //                 .from('episodes_timecod')
+        //                 .update({ playerSeek: Math.trunc(progress!.playedSeconds), played: progress!.played})
+        //                 .eq('id_user', user)
+        //                 .eq('release_episode_id', copyEpisodes.release_episode_id)
+        //             if (error) console.log(error)
+        //         }
+        //     // }
+        //     lastEpisodesAdd()
+        // } 
         const copy = [...lastEpisodesLocal]
         if (!lastEpisodesLocal.find(i => i.release_episode_id === episodes?.id)) {
             
