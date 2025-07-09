@@ -4,6 +4,7 @@ import type { EpisodeType, Episode } from '../../types/typesEpisode'
 import { useEffect, useRef, useState} from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { Link } from 'react-router-dom';
+// import { Modal, ConfigProvider, Input, Button, Skeleton, Dropdown, type MenuProps } from 'antd';
 import { Modal, ConfigProvider, Input, Button, Skeleton } from 'antd';
 import type { FranchisesType } from '../../types/typesFranchises' 
 import { IoSearch } from "react-icons/io5";
@@ -29,6 +30,30 @@ type favourites = {
     id_user: string,
     time: string
 }
+
+// const items: MenuProps['items'] = [
+//   {
+//     label: (
+//       <button className={style.headerMenuDropdownText}>Просмотрено</button>
+//     ),
+//     key: '0',
+//   },
+//   {
+//     label: (
+//       <a href="https://www.aliyun.com" target="_blank" rel="noopener noreferrer">
+//         2nd menu item
+//       </a>
+//     ),
+//     key: '1',
+//   },
+//   {
+//     type: 'divider',
+//   },
+//   {
+//     label: '3rd menu item',
+//     key: '3',
+//   },
+// ];
 
 const AnimeMain = () => {
     const [release, setRelease] = useState<EpisodeType>() 
@@ -64,6 +89,7 @@ const AnimeMain = () => {
         const timeoutFranchises = await getFranchises(timeoutPopular.id!)
         setRelease(timeoutPopular)
         setFranchises(timeoutFranchises)
+        console.log(timeoutPopular)
         setLoading(true)
         document.title = timeoutPopular.name.main
 
@@ -314,6 +340,11 @@ const AnimeMain = () => {
         }
     }
 
+
+    // function viewedAdd() {
+
+    // }
+
     return (
         <div className={style.container}>
             { loading ?
@@ -342,11 +373,35 @@ const AnimeMain = () => {
                                 { release?.episodes_total !== null ? <p className={style.textMenuGray}>Количество серий: <span className={style.textMenu}>{release?.episodes_total}</span></p> : ''}
                                 { release?.average_duration_of_episode !== null ? <p className={style.textMenuGray}>Время серии: <span className={style.textMenu}>{release?.average_duration_of_episode} мин</span></p> : ''} 
                             </div>
-                            {favourites && !favourites.find(i =>Number(i.id_title) === release!.id) ? 
-                                <button onClick={() => addFavorites()} className={style.starBtn}><PiStarBold size={24}/> В избранное</button>
-                                : 
-                                <button onClick={() => deleteFavorites()} className={style.starBtnActive}><PiStarFill size={24}/> Добавлено</button>
-                            }
+                            <div className={style.flexBtn}>
+                                {favourites && !favourites.find(i =>Number(i.id_title) === release!.id) ? 
+                                    <button onClick={() => addFavorites()} className={style.starBtn}><PiStarBold size={24}/> В избранное</button>
+                                    : 
+                                    <button onClick={() => deleteFavorites()} className={style.starBtnActive}><PiStarFill size={24}/> Добавлено</button>
+                                }
+                                {/* <ConfigProvider
+                                    theme={{
+                                        token: {
+                                        colorBgElevated:"#0c0c0c",
+                                        controlItemBgHover: "#1f1f1f"
+                                        },
+                                        components: {
+                                        Button: {
+                                            colorLink: '#e4e4e4',
+                                            colorLinkHover: '#e4e4e4',
+                                            colorLinkActive: '#e4e4e4'
+                                        },
+                                        
+                                    },
+                                }}>
+                                    <Dropdown overlayClassName={style.dropdownStyle} menu={{ items }} trigger={['click']}>
+                                        
+                                        <button onClick={(e) => e.preventDefault()} className={style.listBtn}><PiStarBold size={24}/> Добавить в список</button>
+                                        
+                                    </Dropdown>
+                                </ConfigProvider> */}
+                            </div>
+                            
                         </div>
                     </div>
                     <div>
@@ -443,7 +498,7 @@ const AnimeMain = () => {
                             
                         </ConfigProvider>
                     </div>
-                    <p style={{fontSize:'14px', marginBottom: '30px'}} className={style.textMenuGray}>Просмотрено {lastEpisodesLocal.filter((e) => e.played > 0.8).length} из {release?.episodes_total}</p>
+                    <p style={{fontSize:'14px', marginBottom: '30px'}} className={style.textMenuGray}>Просмотрено {lastEpisodesLocal.filter((e) => e.played > 0.8 && e.id_release === release?.id).length} из {release?.episodes.length}</p>
                     <div className={style.episodesGrid}>
                         {   query === '' ?
                             release?.episodes.map((item) => 
@@ -530,6 +585,7 @@ const AnimeMain = () => {
                             Skeleton: {
                                 gradientFromColor: "rgba(0, 0, 0, 0.36)"
                             },
+                            
                             },
                         }}
                         >
@@ -554,9 +610,7 @@ const AnimeMain = () => {
                             </div>
                             <Skeleton.Input size='default' block={true} className={style.text} style={{width: '20%', marginTop:"20px", height: "50px"}} active={true}/>
                     </ConfigProvider>
-
                 </div>
-                    
             }
         </div>
     )
